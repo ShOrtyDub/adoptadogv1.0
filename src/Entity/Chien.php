@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ChienRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,6 +46,14 @@ class Chien
     #[ORM\ManyToOne(inversedBy: 'chiens')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Admin $fk_id_admin = null;
+
+    #[ORM\OneToMany(mappedBy: 'fk_id_chien', targetEntity: Correspondance::class)]
+    private Collection $correspondances;
+
+    public function __construct()
+    {
+        $this->correspondances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -166,6 +176,36 @@ class Chien
     public function setFkIdAdmin(?Admin $fk_id_admin): static
     {
         $this->fk_id_admin = $fk_id_admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Correspondance>
+     */
+    public function getCorrespondances(): Collection
+    {
+        return $this->correspondances;
+    }
+
+    public function addCorrespondance(Correspondance $correspondance): static
+    {
+        if (!$this->correspondances->contains($correspondance)) {
+            $this->correspondances->add($correspondance);
+            $correspondance->setFkIdChien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCorrespondance(Correspondance $correspondance): static
+    {
+        if ($this->correspondances->removeElement($correspondance)) {
+            // set the owning side to null (unless already changed)
+            if ($correspondance->getFkIdChien() === $this) {
+                $correspondance->setFkIdChien(null);
+            }
+        }
 
         return $this;
     }
