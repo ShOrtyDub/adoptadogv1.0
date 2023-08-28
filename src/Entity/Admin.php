@@ -42,10 +42,14 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'fk_id_admin', targetEntity: Chien::class)]
     private Collection $chiens;
 
+    #[ORM\OneToMany(mappedBy: 'fk_id_admin', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->chiens = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,6 +200,36 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($chien->getFkIdAdmin() === $this) {
                 $chien->setFkIdAdmin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setFkIdAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getFkIdAdmin() === $this) {
+                $commentaire->setFkIdAdmin(null);
             }
         }
 

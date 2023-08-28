@@ -50,9 +50,13 @@ class Chien
     #[ORM\OneToMany(mappedBy: 'fk_id_chien', targetEntity: Correspondance::class)]
     private Collection $correspondances;
 
+    #[ORM\OneToMany(mappedBy: 'fk_id_chien', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->correspondances = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +208,36 @@ class Chien
             // set the owning side to null (unless already changed)
             if ($correspondance->getFkIdChien() === $this) {
                 $correspondance->setFkIdChien(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setFkIdChien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getFkIdChien() === $this) {
+                $commentaire->setFkIdChien(null);
             }
         }
 
