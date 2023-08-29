@@ -5,24 +5,20 @@ namespace App\DataFixtures;
 use App\Entity\Admin;
 use App\Entity\Chien;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ChienFixtures extends Fixture
 {
     private $faker;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct()
     {
         $this->faker = Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $manager): void
     {
-//        $this->truncate($manager);
-
         for ($i = 1; $i <= 5; $i++) {
             $chien[$i] = new Chien();
             $gender = $this->faker->randomElement([1, 2]);
@@ -42,36 +38,16 @@ class ChienFixtures extends Fixture
             $chien[$i]->setTaille($this->faker->numberBetween(20, 70));
             $chien[$i]->setPoids($this->faker->numberBetween(5, 35));
             $chien[$i]->setCaractere($this->faker->randomElement(['Calme', 'Joueur', 'Excité']));
-            dump($this->getReferencedObject(Admin::class, 1, $manager));
-            $chien[$i]->setFkIdAdmin($this->getReferencedObject(Admin::class, 1, $manager));
+            $chien[$i]->setFkIdAdmin($this->getRandomReference(Admin::class, $manager));
             $manager->persist($chien[$i]);
         }
 
         $manager->flush();
     }
 
-    protected function getReferencedObject(string $className, int $id, object $manager)
+    protected function getRandomReference(string $className, object $manager)
     {
-        return $manager->find($className, $id);
+        $list = $manager->getRepository($className)->findAll();
+        return $list[array_rand($list)];
     }
-
-//    protected function truncate($manager): void
-//    {
-//        /**
-//         * @var Connection db
-//         */
-//        $db = $manager->getConnection();
-//        $db->beginTransaction();
-//
-//        $sql = '
-//        SET FOREIGN_KEY_CHECKS = 0;
-//        TRUNCATE admin;
-//        TRUNCATE chien;
-//        SET FOREIGN_KEY_CHECKS =1;';
-//
-//        $db->prepare($sql);
-//        $db->executeQuery($sql);
-//        $db->commit();
-//        $db->beginTransaction();
-//    }
 }
