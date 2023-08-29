@@ -2,32 +2,55 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+        App\Entity\Admin:
+            algorithm: auto
+
+        App\Entity\Utilisateur:
+            algorithm: auto
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        users_in_memory : { memory : null }
+
+        app_admin_provider:
+            entity:
+                class: App\Entity\Admin
+                property: email
+
+        app_utilisateur_provider:
             entity:
                 class: App\Entity\Utilisateur
                 property: email
+
+        chain_provider:
+            chain:
+                providers: [ app_admin_provider, app_utilisateur_provider ]
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\AdminAuthenticator
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
 
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
                 path: /
                 always_remember_me: true
+
+        main:
+            lazy: true
+            form_login: ~
+            provider: chain_provider
+            custom_authenticator:
+                - App\Security\AdminAuthenticator
+                - App\Security\UtilisateurAuthenticator
+            entry_point : form_login
+            logout:
+                path: app_logout
+                target: app_login
+                invalidate_session : true
+                # where to redirect after logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -37,9 +60,14 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy:
+        ROLE_VISITOR: ROLE_USER
+        ROLE_ADMIN: ROLE_VISITOR
+
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/utilisateur, roles: ROLE_USER }
 
 when@test:
     security:
