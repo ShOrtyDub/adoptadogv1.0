@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Correspondance{% endblock %}
+
+{% block body %}
+    <h1>Edit Correspondance</h1>
+
+    {{ include('correspondance/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_correspondance_index') }}">back to list</a>
+
+    {{ include('correspondance/_delete_form.html.twig') }}
+{% endblock %}
