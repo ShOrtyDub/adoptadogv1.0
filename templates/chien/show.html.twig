@@ -54,5 +54,7 @@
 
     <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
 
+    <a href="{{ path('app_commentaire_index', {'id': chien.id}) }}">commentaires sur le chien</a>
+
     {{ include('chien/_delete_form.html.twig') }}
 {% endblock %}
