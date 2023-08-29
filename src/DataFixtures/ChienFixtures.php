@@ -30,9 +30,8 @@ class ChienFixtures extends Fixture
             $chien[$i]->setAge($this->faker->numberBetween(1, 15));
             $chien[$i]->setPhoto('https://loremflickr.com/640/480/dog');
             $chien[$i]->setRace($this->faker->randomElement([
-                'Labrador Retriever', 'Berger Allemand', 'Golden Retriever',
-                'French Bulldog', 'Bulldog', 'Beagle', 'Rottweiler',
-                'Yorkshire', 'Boxer', 'Border Collie'
+                'Labrador', 'Berger Allemand', 'Golden Retriever',
+                'French Bulldog', 'Bulldog'
             ]));
             $chien[$i]->setCouleur($this->faker->randomElement(['Blanc', 'Noir', 'Beige', 'Marron', 'Gris']));
             $chien[$i]->setTaille($this->faker->numberBetween(20, 70));
