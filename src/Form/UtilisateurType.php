@@ -59,7 +59,7 @@ class UtilisateurType extends AbstractType
             ])
             ->add('is_valide', CheckboxType::class, [
                 'label' => 'Valide',
-                'required' => true
+                'required' => false
             ])
         ;
 

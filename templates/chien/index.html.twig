@@ -47,6 +47,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_chien_new', {'id': app.user.id}) }}">Create new</a>
+    {% if app.user %}
+    <a href="{{ path('app_chien_new', {'id': app.user.id}) }}">Create new avec id chien</a>
+    {% else %}
+    <a href="{{ path('app_chien_new') }}">Create new sans id chien</a>
+    {%  endif %}
     <a href="{{ path('app_main') }}">Accueil</a>
 {% endblock %}

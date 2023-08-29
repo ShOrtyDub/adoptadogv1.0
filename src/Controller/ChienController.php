@@ -6,6 +6,7 @@ use App\Entity\Chien;
 use App\Form\ChienType;
 use App\Repository\AdminRepository;
 use App\Repository\ChienRepository;
+use App\Repository\CommentaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class ChienController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_chien_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, AdminRepository $adminRepository, $id): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, AdminRepository $adminRepository, $id = null): Response
     {
         $chien = new Chien();
         $idAmdin = $adminRepository->find($id);
@@ -46,10 +47,13 @@ class ChienController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_chien_show', methods: ['GET'])]
-    public function show(Chien $chien): Response
+    public function show(Chien $chien, CommentaireRepository $commentaireRepository): Response
     {
+        // TODO récupérer l'id du chien correctement et non en dur
+        $commentaire = $commentaireRepository->findBy(['fk_id_chien' => 36]);
         return $this->render('chien/show.html.twig', [
             'chien' => $chien,
+            'commentaires' => $commentaire
         ]);
     }
 

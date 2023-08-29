@@ -65,6 +65,7 @@ security:
         ROLE_ADMIN: ROLE_VISITOR
 
     access_control:
+        - { path: ^/, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/utilisateur, roles: ROLE_USER }
