@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Correspondance;
 use App\Form\CorrespondanceType;
+use App\Repository\ChienRepository;
 use App\Repository\CorrespondanceRepository;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/correspondance')]
 class CorrespondanceController extends AbstractController
 {
-    #[Route('/', name: 'app_correspondance_index', methods: ['GET'])]
-    public function index(CorrespondanceRepository $correspondanceRepository): Response
+    #[Route('/{id}', name: 'app_correspondance_index', methods: ['GET'])]
+    public function index(CorrespondanceRepository $correspondanceRepository, UtilisateurRepository $utilisateurRepository, $id = null): Response
     {
+        // TODO réussir à avoir la fkchien et la fkutilisateur pour afficher la vue du match
+        $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => 59]);
+//        dd($correspondances);
+        $chiens = [];
+        $utilisateur = $utilisateurRepository->find($id);
+        foreach ($correspondances as $correspondance) {
+            $chiens[] = $correspondance->getFkIdChien();
+        }
+//        dd($chiens);
+//        dd($utilisateur);
         return $this->render('correspondance/index.html.twig', [
             'correspondances' => $correspondanceRepository->findAll(),
+            'chiens' => $chiens,
+            'utilisateur' => $utilisateur
         ]);
     }
 
@@ -71,7 +85,7 @@ class CorrespondanceController extends AbstractController
     #[Route('/{id}', name: 'app_correspondance_delete', methods: ['POST'])]
     public function delete(Request $request, Correspondance $correspondance, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$correspondance->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $correspondance->getId(), $request->request->get('_token'))) {
             $entityManager->remove($correspondance);
             $entityManager->flush();
         }

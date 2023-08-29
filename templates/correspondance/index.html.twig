@@ -5,29 +5,43 @@
 {% block body %}
     <h1>Correspondance index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for correspondance in correspondances %}
-            <tr>
-                <td>{{ correspondance.id }}</td>
-                <td>
-                    <a href="{{ path('app_correspondance_show', {'id': correspondance.id}) }}">show</a>
-                    <a href="{{ path('app_correspondance_edit', {'id': correspondance.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <tbody>
+        <tr>
+            <td>
+                    {{ utilisateur.nom }}
+            </td>
+            <td>
+                {% for chien in chiens %}
+                    {{ chien.nom }}
+                {% endfor %}
+            </td>
+        </tr>
+    </tbody>
+
+{#    <table class="table">#}
+{#        <thead>#}
+{#        <tr>#}
+{#            <th>Id</th>#}
+{#            <th>actions</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for correspondance in correspondances %}#}
+{#            #}{#                // TODO afficher la fkchien et fkutilisateur pour les matchs #}
+{#            <tr>#}
+{#                <td>{{ correspondance.id }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('app_correspondance_show', {'id': correspondance.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_correspondance_edit', {'id': correspondance.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="2">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
 
     <a href="{{ path('app_correspondance_new') }}">Create new</a>
     <a href="{{ path('app_main') }}">Accueil</a>

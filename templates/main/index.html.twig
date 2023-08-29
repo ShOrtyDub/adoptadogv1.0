@@ -9,5 +9,7 @@
     <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
     <a href="{{ path('app_admin_index') }}">Voir les admins</a>
     <a href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
-    <a href="{{ path('app_correspondance_index') }}">Voir les correspondances</a>
+    {% if app.user %}
+        <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
+    {% endif %}
 {% endblock %}
