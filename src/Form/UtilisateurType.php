@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -55,7 +56,12 @@ class UtilisateurType extends AbstractType
             ->add('telephone', NumberType::class, [
                 'label' => 'Téléphone',
                 'required' => true
-            ]);
+            ])
+            ->add('is_valide', CheckboxType::class, [
+                'label' => 'Valide',
+                'required' => true
+            ])
+        ;
 
         $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(

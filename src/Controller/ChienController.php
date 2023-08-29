@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Chien;
 use App\Form\ChienType;
+use App\Repository\AdminRepository;
 use App\Repository\ChienRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +23,12 @@ class ChienController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_chien_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_chien_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, AdminRepository $adminRepository, $id): Response
     {
         $chien = new Chien();
+        $idAmdin = $adminRepository->find($id);
+        $chien->setFkIdAdmin($idAmdin);
         $form = $this->createForm(ChienType::class, $chien);
         $form->handleRequest($request);
 
@@ -71,7 +74,7 @@ class ChienController extends AbstractController
     #[Route('/{id}', name: 'app_chien_delete', methods: ['POST'])]
     public function delete(Request $request, Chien $chien, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$chien->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $chien->getId(), $request->request->get('_token'))) {
             $entityManager->remove($chien);
             $entityManager->flush();
         }
