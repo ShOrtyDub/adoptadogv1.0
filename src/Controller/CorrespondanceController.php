@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Correspondance;
 use App\Form\CorrespondanceType;
-use App\Repository\ChienRepository;
 use App\Repository\CorrespondanceRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,14 +20,13 @@ class CorrespondanceController extends AbstractController
     {
         // TODO réussir à avoir la fkchien et la fkutilisateur pour afficher la vue du match
         $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => 59]);
-//        dd($correspondances);
+
         $chiens = [];
         $utilisateur = $utilisateurRepository->find($id);
         foreach ($correspondances as $correspondance) {
             $chiens[] = $correspondance->getFkIdChien();
         }
-//        dd($chiens);
-//        dd($utilisateur);
+
         return $this->render('correspondance/index.html.twig', [
             'correspondances' => $correspondanceRepository->findAll(),
             'chiens' => $chiens,
@@ -36,11 +34,14 @@ class CorrespondanceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_correspondance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_correspondance_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, UtilisateurRepository $utilisateurRepository, $id = null): Response
     {
+        // TODO créer la correspondance avec des chiens. Récupérer l'id de l'user pour cela.
         $correspondance = new Correspondance();
+        $utilisateur = $utilisateurRepository->find($id);
         $form = $this->createForm(CorrespondanceType::class, $correspondance);
+//        dd($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

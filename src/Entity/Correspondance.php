@@ -21,6 +21,15 @@ class Correspondance
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $fk_id_utilisateur = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $couleur = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $race = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $caractere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +55,42 @@ class Correspondance
     public function setFkIdUtilisateur(?Utilisateur $fk_id_utilisateur): static
     {
         $this->fk_id_utilisateur = $fk_id_utilisateur;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): static
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getRace(): ?string
+    {
+        return $this->race;
+    }
+
+    public function setRace(?string $race): static
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    public function getCaractere(): ?string
+    {
+        return $this->caractere;
+    }
+
+    public function setCaractere(?string $caractere): static
+    {
+        $this->caractere = $caractere;
 
         return $this;
     }
