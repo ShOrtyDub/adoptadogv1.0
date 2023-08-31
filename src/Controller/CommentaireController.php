@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
+use App\Repository\ChienRepository;
 use App\Repository\CommentaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +23,15 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    public function new(Request         $request, EntityManagerInterface $entityManager,
+                        ChienRepository $chienRepository, $id = null): Response
     {
-        //TODO ajouter la fkchien et la fk de celui qui entre le commentaire.
         $commentaire = new Commentaire();
+        $chien = $chienRepository->find($id);
+        $utilisateur = $this->getUser();
+        $commentaire->setFkIdUtilisateur($utilisateur);
+        $commentaire->setFkIdChien($chien);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
@@ -34,7 +39,10 @@ class CommentaireController extends AbstractController
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        //TODO rend la vue Liste chien, pas là vue du profil.
+            return $this->redirectToRoute('app_chien_show', [
+                'chien' => $chien
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/new.html.twig', [
@@ -72,7 +80,7 @@ class CommentaireController extends AbstractController
     #[Route('/{id}', name: 'app_commentaire_delete', methods: ['POST'])]
     public function delete(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $commentaire->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commentaire);
             $entityManager->flush();
         }

@@ -57,11 +57,10 @@ class ChienController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_chien_show', methods: ['GET'])]
-    public function show(Chien $chien, CommentaireRepository $commentaireRepository): Response
+    #[Route('/profil/{id}', name: 'app_chien_show', methods: ['GET'])]
+    public function show(Chien $chien, CommentaireRepository $commentaireRepository, $id = null): Response
     {
-        // TODO récupérer l'id du chien correctement et non en dur
-        $commentaire = $commentaireRepository->findBy(['fk_id_chien' => 36]);
+        $commentaire = $commentaireRepository->findBy(['fk_id_chien' => $id]);
         return $this->render('chien/show.html.twig', [
             'chien' => $chien,
             'commentaires' => $commentaire
