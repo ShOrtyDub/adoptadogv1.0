@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Correspondance;
+use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,16 @@ class CorrespondanceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Correspondance::class);
+    }
+
+    public function deleteOldCorrespondence(Utilisateur $utilisateur): void
+    {
+        $this->createQueryBuilder('c')
+            ->delete()
+            ->where('c.fk_id_utilisateur = :utilisateur')
+            ->setParameter('utilisateur', $utilisateur)
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

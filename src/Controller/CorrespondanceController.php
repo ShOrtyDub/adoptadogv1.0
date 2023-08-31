@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Correspondance;
 use App\Form\CorrespondanceType;
+use App\Repository\ChienRepository;
 use App\Repository\CorrespondanceRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +20,7 @@ class CorrespondanceController extends AbstractController
     public function index(CorrespondanceRepository $correspondanceRepository, UtilisateurRepository $utilisateurRepository, $id = null): Response
     {
         // TODO réussir à avoir la fkchien et la fkutilisateur pour afficher la vue du match
-        $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => 59]);
+        $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => $id]);
 
         $chiens = [];
         $utilisateur = $utilisateurRepository->find($id);
@@ -35,20 +36,81 @@ class CorrespondanceController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_correspondance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UtilisateurRepository $utilisateurRepository, $id = null): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CorrespondanceRepository $correspondanceRepository,
+                        UtilisateurRepository $utilisateurRepository, ChienRepository $chienRepository, $id = null): Response
     {
-        // TODO créer la correspondance avec des chiens. Récupérer l'id de l'user pour cela.
         $correspondance = new Correspondance();
         $utilisateur = $utilisateurRepository->find($id);
         $form = $this->createForm(CorrespondanceType::class, $correspondance);
-//        dd($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($correspondance);
+            $correspondanceRepository->deleteOldCorrespondence($utilisateur);
+
+            $couleur = $correspondance->getCouleur();
+            $race = $correspondance->getRace();
+            $caractere = $correspondance->getCaractere();
+
+            switch (true) {
+                case $couleur === null && $race === null && $caractere === null:
+                    // Aucun critère spécifié, renvoie tous les chiens
+                    $chiens = $chienRepository->findAll();
+                    break;
+
+                case $couleur === null && $race !== null && $caractere !== null:
+                    // Seule la race et le caractère sont spécifiés
+                    $chiens = $chienRepository->findBy(['race' => $race, 'caractere' => $caractere]);
+                    break;
+
+                case $couleur !== null && $race === null && $caractere !== null:
+                    // Seule la couleur et le caractère sont spécifiés
+                    $chiens = $chienRepository->findBy(['couleur' => $couleur, 'caractere' => $caractere]);
+                    break;
+
+                case $couleur !== null && $race !== null && $caractere === null:
+                    // Seule la couleur et la race sont spécifiées
+                    $chiens = $chienRepository->findBy(['couleur' => $couleur, 'race' => $race]);
+                    break;
+
+                case $couleur !== null && $race === null && $caractere === null:
+                    // Seule la couleur est spécifiée
+                    $chiens = $chienRepository->findBy(['couleur' => $couleur]);
+                    break;
+
+                case $couleur === null && $race !== null && $caractere === null:
+                    // Seule la race est spécifiée
+                    $chiens = $chienRepository->findBy(['race' => $race]);
+                    break;
+
+                case $couleur === null && $race === null && $caractere !== null:
+                    // Seul le caractère est spécifié
+                    $chiens = $chienRepository->findBy(['caractere' => $caractere]);
+                    break;
+
+                case $couleur !== null && $race !== null && $caractere !== null:
+                    // Couleur, race et caractère sont spécifiés
+                    $chiens = $chienRepository->findBy(['couleur' => $couleur, 'race' => $race, 'caractere' => $caractere]);
+                    break;
+            }
+
+            foreach ($chiens as $chien) {
+                $nouvelleCorrespondance = new Correspondance();
+                $nouvelleCorrespondance->setCouleur($couleur);
+                $nouvelleCorrespondance->setRace($race);
+                $nouvelleCorrespondance->setCaractere($caractere);
+                $nouvelleCorrespondance->setFkIdChien($chien);
+                $nouvelleCorrespondance->setFkIdUtilisateur($utilisateur);
+
+                $entityManager->persist($nouvelleCorrespondance);
+            }
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_correspondance_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_correspondance_index', [
+                'chiens' => $chiens,
+                'utilisateur' => $utilisateur,
+                'id' => $id
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('correspondance/new.html.twig', [
@@ -57,7 +119,8 @@ class CorrespondanceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_correspondance_show', methods: ['GET'])]
+    #[
+        Route('/{id}', name: 'app_correspondance_show', methods: ['GET'])]
     public function show(Correspondance $correspondance): Response
     {
         return $this->render('correspondance/show.html.twig', [
