@@ -53,6 +53,9 @@ class Chien
     #[ORM\OneToMany(mappedBy: 'fk_id_chien', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\Column(length: 8)]
+    private ?string $sexe = null;
+
     public function __construct()
     {
         $this->correspondances = new ArrayCollection();
@@ -240,6 +243,18 @@ class Chien
                 $commentaire->setFkIdChien(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): static
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }

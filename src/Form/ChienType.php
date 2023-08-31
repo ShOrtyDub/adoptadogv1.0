@@ -34,6 +34,14 @@ class ChienType extends AbstractType
                 'label' => 'Race',
                 'required' => true
             ])
+            ->add('sexe', ChoiceType::class, [
+                'choices' => [
+                    'femelle' => 'Femelle',
+                    'male' => 'Mâle'
+                ],
+                'label' => 'Sexe',
+                'required' => true
+            ])
             ->add('couleur', ChoiceType::class, [
                 'choices' => [
                     'Blanc' => 'Blanc',
