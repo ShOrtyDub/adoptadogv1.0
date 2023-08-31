@@ -64,11 +64,11 @@ STRUCTURE
     justify-content: space-between;
 }
 
-.lignerougecontainer {
+.lignerouge {
     border: 1px solid red;
 }
 
-.ligneverterow {
+.ligneverte {
     border: 1px solid green;
 }
 
@@ -82,6 +82,19 @@ nav, footer {
     background: #C89F9C;
 }
 
-.size {
-    font-size: 10rem ;
+/***************************************************
+Accueil - Main
+***************************************************/
+.sizeh1 {
+    font-size: 10rem;
+}
+
+/***************************************************
+Les Dogs - liste des chiens
+***************************************************/
+.fiche {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vh;
+    justify-content: center;
 }

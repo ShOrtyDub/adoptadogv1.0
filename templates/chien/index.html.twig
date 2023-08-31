@@ -1,59 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chien index{% endblock %}
+{% block title %}Les Dogs{% endblock %}
 
 {% block body %}
-    <h1>Chien index</h1>
+    <main>
+        <h1 class="text-center">Les dogs</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Sexe</th>
-                <th>Age</th>
-                <th>Race</th>
-                <th>Couleur</th>
-                <th>Photo</th>
-                <th>Taille</th>
-                <th>Poids</th>
-                <th>Caractere</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for chien in chiens %}
-            <tr>
-                <td>{{ chien.id }}</td>
-                <td>{{ chien.nom }}</td>
-                <td>{{ chien.sexe }}</td>
-                <td>{{ chien.age }}</td>
-                <td>{{ chien.race }}</td>
-                <td>{{ chien.couleur }}</td>
-{#                TODO mettre la balise image#}
-                <td>{{ chien.photo }}</td>
-                <td>{{ chien.taille }}</td>
-                <td>{{ chien.poids }}</td>
-                <td>{{ chien.caractere }}</td>
-                <td>{{ chien.description }}</td>
-                <td>
-                    <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
-                    <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
-                </td>
-            </tr>
+        <p class="text-center">Voici nos amis qui attendent un nouveau foyer.</p>
+
+        {% if app.user %}
+            <a href="{{ path('app_chien_new', {'id': app.user.id}) }}">Create new avec id chien</a>
         {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <a href="{{ path('app_chien_new') }}">Create new sans id chien</a>
+        {% endif %}
+        <a href="{{ path('app_main') }}">Accueil</a>
 
-    {% if app.user %}
-    <a href="{{ path('app_chien_new', {'id': app.user.id}) }}">Create new avec id chien</a>
-    {% else %}
-    <a href="{{ path('app_chien_new') }}">Create new sans id chien</a>
-    {%  endif %}
-    <a href="{{ path('app_main') }}">Accueil</a>
+        <div class="flex ligneverte">
+            {% for chien in chiens %}
+                <div class="fiche mt-5 mb-5 lignerouge">
+                    <div class="text-center ligneverte">
+                        <img src="{{ chien.photo }}" alt="photo du chien">
+                    </div>
+
+                    <div class="ligneverte">
+                        <p><strong>Nom:</strong> {{ chien.nom }}</p>
+                        <p><strong>Sexe:</strong> {{ chien.sexe }}</p>
+                        <p><strong>Age:</strong> {{ chien.age }}</p>
+                        <p><strong>Race:</strong> {{ chien.race }}</p>
+                        <p><strong>Taille:</strong> {{ chien.taille }} cm</p>
+                        <p><strong>Poids:</strong> {{ chien.poids }} kg</p>
+                        <p><strong>Caractère:</strong> {{ chien.caractere }}</p>
+                        <p><strong>Description:</strong> {{ chien.description }}</p>
+                    </div>
+                    <div class="text-center">
+                        <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
+                        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
+                    </div>
+                </div>
+
+
+            {% endfor %}
+        </div>
+    </main>
 {% endblock %}
