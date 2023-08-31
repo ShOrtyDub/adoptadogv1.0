@@ -1,76 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chien{% endblock %}
+{% block title %}Mon Sweet Profil{% endblock %}
 
 {% block body %}
-    <h1>Chien</h1>
+    <h1 class="text-center">{{ chien.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ chien.id }}</td>
-        </tr>
-        <tr>
-            <th>Nom</th>
-            <td>{{ chien.nom }}</td>
-        </tr>
-        <tr>
-            <th>Age</th>
-            <td>{{ chien.age }}</td>
-        </tr>
-        <tr>
-            <th>Race</th>
-            <td>{{ chien.race }}</td>
-        </tr>
-        <tr>
-            <th>Couleur</th>
-            <td>{{ chien.couleur }}</td>
-        </tr>
-        <tr>
-            <th>Photo</th>
-            <td>{{ chien.photo }}</td>
-        </tr>
-        <tr>
-            <th>Taille</th>
-            <td>{{ chien.taille }}</td>
-        </tr>
-        <tr>
-            <th>Poids</th>
-            <td>{{ chien.poids }}</td>
-        </tr>
-        <tr>
-            <th>Caractere</th>
-            <td>{{ chien.caractere }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ chien.description }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="flex fiche lignerouge">
+        <div class="ligneverte">
+            <img src="{{ chien.photo }}" alt="photo du chien">
+        </div>
+        <div class="ligneverte">
+            <p><strong>Nom:</strong> {{ chien.nom }}</p>
+            <p><strong>Sexe:</strong> {{ chien.sexe }}</p>
+            <p><strong>Age:</strong> {{ chien.age }}</p>
+            <p><strong>Race:</strong> {{ chien.race }}</p>
+            <p><strong>Taille:</strong> {{ chien.taille }} cm</p>
+            <p><strong>Poids:</strong> {{ chien.poids }} kg</p>
+            <p><strong>Caractère:</strong> {{ chien.caractere }}</p>
+            <p><strong>Description:</strong> {{ chien.description }}</p>
+        </div>
+    </div>
 
-    {% for commentaire in commentaires %}
-        <table>
-            <tr>Commentaire</tr>
-            <tr>
-                <td>{{ commentaire.texte }}</td>
-            </tr>
-        </table>
-    {% else %}
-        <table>
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        </table>
-    {% endfor %}
+    <div class="text-center lignerouge">
+        <a href="{{ path('app_chien_index') }}">back to list</a>
 
+        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
 
-    <a href="{{ path('app_chien_index') }}">back to list</a>
+        <a href="{{ path('app_commentaire_new', {'id': chien.id}) }}">ajouter un commentaire</a>
 
-    <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
+        {{ include('chien/_delete_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('app_commentaire_index', {'id': chien.id}) }}">commentaires sur le chien</a>
-
-    {{ include('chien/_delete_form.html.twig') }}
+    <div class="lignerouge">
+        {% for commentaire in commentaires %}
+            <div class="commentaire mt-2 mb-2 ligneverte">
+                <table>
+                    <tr>Commentaire</tr>
+                    <tr>
+                        <td>{{ commentaire.texte }}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -49,6 +49,10 @@ body {
     /* Polices système */
 }
 
+.background {
+    background: #EEE2DF;
+}
+
 /***************************************************
 STRUCTURE
 ***************************************************/
@@ -61,7 +65,7 @@ STRUCTURE
 .flex {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .lignerouge {
@@ -97,4 +101,13 @@ Les Dogs - liste des chiens
     margin-right: auto;
     width: 100vh;
     justify-content: center;
+}
+
+/***************************************************
+Profil DU Dog
+***************************************************/
+.commentaire{
+    width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
 }

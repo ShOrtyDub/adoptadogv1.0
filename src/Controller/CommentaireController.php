@@ -25,6 +25,7 @@ class CommentaireController extends AbstractController
     #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        //TODO ajouter la fkchien et la fk de celui qui entre le commentaire.
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
