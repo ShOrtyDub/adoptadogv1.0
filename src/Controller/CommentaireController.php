@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Utilisateur;
 use App\Form\CommentaireType;
 use App\Repository\ChienRepository;
 use App\Repository\CommentaireRepository;
@@ -30,7 +31,11 @@ class CommentaireController extends AbstractController
         $commentaire = new Commentaire();
         $chien = $chienRepository->find($id);
         $utilisateur = $this->getUser();
-        $commentaire->setFkIdUtilisateur($utilisateur);
+        if ($utilisateur instanceof Utilisateur) {
+            $commentaire->setFkIdUtilisateur($utilisateur);
+        } else {
+            $commentaire->setFkIdAdmin($utilisateur);
+        }
         $commentaire->setFkIdChien($chien);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
@@ -39,7 +44,7 @@ class CommentaireController extends AbstractController
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
-        //TODO rend la vue Liste chien, pas là vue du profil.
+            //TODO rend la vue Liste chien, pas là vue du profil.
             return $this->redirectToRoute('app_chien_show', [
                 'id' => $chien->getId()
             ], Response::HTTP_SEE_OTHER);
