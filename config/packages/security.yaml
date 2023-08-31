@@ -67,7 +67,8 @@ security:
     access_control:
 #        - { path: ^/, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/utilisateur, roles: ROLE_USER }
+        - { path: ^/utilisateur, roles: PUBLIC_ACCESS }
+#        - { path: ^/utilisateur, roles: ROLE_USER }
         - { path: ^/correspondance, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
