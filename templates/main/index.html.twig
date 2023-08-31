@@ -13,7 +13,13 @@
                 Et peut-être, qui sait, leur permettre de se trouver un foyer...
             </p>
 
-            <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
+            {% if app.user %}
+                <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
+            {% else %}
+                <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
+            {% endif %}
+
+
         </div>
 
         <div class="container text-center lignerouge">

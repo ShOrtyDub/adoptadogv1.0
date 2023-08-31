@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Chien;
+use App\Entity\Utilisateur;
 use App\Form\ChienType;
 use App\Repository\AdminRepository;
 use App\Repository\ChienRepository;
 use App\Repository\CommentaireRepository;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/chien')]
 class ChienController extends AbstractController
 {
-    #[Route('/', name: 'app_chien_index', methods: ['GET'])]
-    public function index(ChienRepository $chienRepository): Response
+    #[Route('/{id}', name: 'app_chien_index', methods: ['GET'])]
+    public function index(ChienRepository $chienRepository, UtilisateurRepository $utilisateurRepository, $id = null): Response
     {
+        if ($id !== null) {
+            $idUtilisateur = $utilisateurRepository->find($id);
+            if ($idUtilisateur instanceof Utilisateur) {
+                return $this->render('utilisateur/listeChienUtilisateur.html.twig', [
+                    'chiens' => $chienRepository->findAll(),
+                ]);
+            }
+        }
+        //Si public alors
         return $this->render('chien/index.html.twig', [
             'chiens' => $chienRepository->findAll(),
         ]);

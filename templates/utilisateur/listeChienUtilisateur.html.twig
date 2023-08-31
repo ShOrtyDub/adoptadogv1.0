@@ -8,9 +8,6 @@
 
         <p class="text-center">Voici nos amis qui attendent un nouveau foyer.</p>
 
-        {% if app.user %}
-            <a href="{{ path('app_chien_new', {'id': app.user.id}) }}">Create new avec id chien</a>
-        {% endif %}
         <a href="{{ path('app_main') }}">Accueil</a>
 
         <div class="flex ligneverte">
@@ -33,7 +30,7 @@
                     <div class="text-center">
                         <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
                         {% if app.user %}
-                        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
+                            <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
                         {% endif %}
                     </div>
                 </div>
