@@ -1,7 +1,8 @@
-{#TODO#}
-<nav class="navbar navbar-expand-lg navbar-light">
+{# TODO #}
+<nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="{{ path('app_main') }}">
-        <img src="/public/assets/img/palette_couleur.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="/public/assets/img/palette_couleur.png" width="30" height="30" class="d-inline-block align-top"
+             alt="">
         Adopt a Dog
     </a>
 
@@ -13,6 +14,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_admin_index') }}">Voir les admins</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>            </li>
         </ul>
     </div>
 </nav>

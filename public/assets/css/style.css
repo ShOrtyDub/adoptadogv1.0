@@ -64,12 +64,24 @@ STRUCTURE
     justify-content: space-between;
 }
 
+.lignerougecontainer {
+    border: 1px solid red;
+}
+
+.ligneverterow {
+    border: 1px solid green;
+}
+
 /*marron: #B36A5E
   marron plus clair: #CA7C5C
   taupe rose: #C89F9C
   taupe clair: #EED7C5
   taupe gris: #EEE2DF
 */
-nav {
+nav, footer {
     background: #C89F9C;
+}
+
+.size {
+    font-size: 10rem ;
 }

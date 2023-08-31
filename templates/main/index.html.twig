@@ -3,13 +3,31 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>Adopt a Dog</h1>
-    <h2>Accueil</h2>
-    <p>Bienvenu sur Adopt a Dog</p>
-    <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
-    <a href="{{ path('app_admin_index') }}">Voir les admins</a>
-    <a href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
-    {% if app.user %}
-        <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
-    {% endif %}
+    <main>
+        <h1 class="text-center size">Adopt a Dog</h1>
+
+        <div class="container text-center lignerougecontainer">
+            <h2>Bienvenu sur Adopt a Dog!</h2>
+            <p>
+                L'application de notre refuge où vous pouvez voir les chiens en adoption.
+                Et peut-être, qui sait, leur permettre de se trouver un foyer...
+            </p>
+
+            <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
+        </div>
+
+        <div class="container text-center lignerougecontainer">
+            <h3>Faire une recherche</h3>
+            <p>
+                Vous voulez faire une recherche pour voir avec quels chiens vous matchez ?
+            </p>
+            {% if not app.user %}
+                <a href="{{ path('app_login') }}">Voir les correspondances</a>
+            {% endif %}
+            {% if app.user %}
+                <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
+            {% endif %}
+        </div>
+    </main>
+
 {% endblock %}
