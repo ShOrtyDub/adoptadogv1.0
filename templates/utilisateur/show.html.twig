@@ -3,56 +3,29 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+    <h1 class="text-center">Votre profil</h1>
+    <h2 class="text-center">Bonjour {{ utilisateur.prenom }}</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ utilisateur.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ utilisateur.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ utilisateur.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ utilisateur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ utilisateur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ utilisateur.age }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ utilisateur.photo }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ utilisateur.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Is_valide</th>
-                <td>{{ utilisateur.isValide ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="flex fiche lignerouge">
+        <div class="ligneverte">
+            <img src="{{ utilisateur.photo }}" alt="photo de l'utilisateur">
+        </div>
+        <div class="ligneverte">
+            <p><strong>Nom:</strong> {{ utilisateur.nom }}</p>
+            <p><strong>Prenom:</strong> {{ utilisateur.prenom }}</p>
+            <p><strong>Age:</strong> {{ utilisateur.age }} cm</p>
+            <p><strong>Téléphone:</strong> {{ utilisateur.telephone }} kg</p>
+            <p><strong>Email:</strong> {{ utilisateur.email }}</p>
+            <p><strong>Password:</strong> {{ utilisateur.password }}</p>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+        </div>
+    </div>
 
-    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+    <div class="text-center lignerouge">
+        <a href="{{ path('app_utilisateur_index') }}">back to list</a>
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
+        <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier votre profil</a>
+
+        {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
