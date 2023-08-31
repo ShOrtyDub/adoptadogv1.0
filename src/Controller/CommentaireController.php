@@ -41,7 +41,7 @@ class CommentaireController extends AbstractController
 
         //TODO rend la vue Liste chien, pas là vue du profil.
             return $this->redirectToRoute('app_chien_show', [
-                'chien' => $chien
+                'id' => $chien->getId()
             ], Response::HTTP_SEE_OTHER);
         }
 

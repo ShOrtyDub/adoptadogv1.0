@@ -22,13 +22,13 @@
     </div>
 
     <div class="text-center lignerouge">
-        <a href="{{ path('app_chien_index') }}">back to list</a>
-
-        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
-
-        <a href="{{ path('app_commentaire_new', {'id': chien.id}) }}">ajouter un commentaire</a>
-
-        {{ include('chien/_delete_form.html.twig') }}
+        {% if app.user %}
+            <a href="{{ path('app_chien_index', {'id':app.user.id}) }}">Revenir à la liste</a>
+            <a href="{{ path('app_commentaire_new', {'id': chien.id}) }}">ajouter un commentaire</a>
+        {% else %}
+            <a href="{{ path('app_chien_index') }}">Revenir à la liste</a>
+            <a href="{{ path('app_login') }}">ajouter un commentaire</a>
+        {% endif %}
     </div>
 
     <div class="lignerouge">

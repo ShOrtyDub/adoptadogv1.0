@@ -27,11 +27,9 @@
                         <p><strong>Caractère:</strong> {{ chien.caractere }}</p>
                         <p><strong>Description:</strong> {{ chien.description }}</p>
                     </div>
+
                     <div class="text-center">
                         <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
-                        {% if app.user %}
-                            <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
-                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
