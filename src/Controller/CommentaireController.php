@@ -44,7 +44,6 @@ class CommentaireController extends AbstractController
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
-            //TODO rend la vue Liste chien, pas là vue du profil.
             return $this->redirectToRoute('app_chien_show', [
                 'id' => $chien->getId()
             ], Response::HTTP_SEE_OTHER);

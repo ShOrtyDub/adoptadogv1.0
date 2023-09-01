@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Chien;
 use App\Entity\Utilisateur;
 use App\Form\ChienType;
@@ -61,10 +62,20 @@ class ChienController extends AbstractController
     public function show(Chien $chien, CommentaireRepository $commentaireRepository, $id = null): Response
     {
         $commentaire = $commentaireRepository->findBy(['fk_id_chien' => $id]);
-        return $this->render('chien/show.html.twig', [
-            'chien' => $chien,
-            'commentaires' => $commentaire
-        ]);
+        //TODO faire un redirect sur la page adminShowChien en checkant si c'est bien un admin.
+        //user->getuserid
+        $admin = $this->getUser();
+        if ($admin instanceof Admin) {
+            return $this->render('admin/adminProfilChien.html.twig', [
+                'chien' => $chien,
+                'commentaires' => $commentaire
+            ]);
+        } else {
+            return $this->render('chien/show.html.twig', [
+                'chien' => $chien,
+                'commentaires' => $commentaire
+            ]);
+        }
     }
 
     #[Route('/{id}/edit', name: 'app_chien_edit', methods: ['GET', 'POST'])]
