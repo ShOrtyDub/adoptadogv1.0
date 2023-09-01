@@ -8,7 +8,6 @@
 
         <p class="text-center">{{ utilisateur.nom }} voici avec quelle boule de poils vous matchez</p>
 
-        <a href="{{ path('app_correspondance_new', {'id': app.user.id}) }}">Create new</a>
         <a href="{{ path('app_main') }}">Accueil</a>
 
         <div class="flex ligneverte">
@@ -30,7 +29,6 @@
                     </div>
                     <div class="text-center">
                         <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
-                        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
                     </div>
                 </div>
             {% endfor %}
