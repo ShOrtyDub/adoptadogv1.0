@@ -5,7 +5,7 @@
 {% block body %}
     <main>
         <!--        Titre        -->
-        <h1 class="text-center titre">Les dogs</h1>
+        <h1 class="text-center mt-5 titre">Les dogs</h1>
         <!--        ! Titre        -->
 
         <!--        Intro        -->
@@ -23,18 +23,14 @@
 
 
         <!--        Liste des chiens        -->
-        <div class="flex ligneverte">
-
+        <div class="flex">
             {% for chien in chiens %}
                 <!--        Fiche du chien        -->
                 <div class="fiche">
-                    <!--        Photo du chien        -->
                     <div class="text-center pt-4 pb-4">
                         <img src="{{ chien.photo }}" alt="photo du chien" width="500">
                     </div>
-                    <!--        ! Photo du chien        -->
 
-                    <!--        Caractèristique du chien        -->
                     <div>
                         <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
                         <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
@@ -45,7 +41,6 @@
                         <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
                         <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
                     </div>
-                    <!--        ! Caractèristique du chien        -->
 
                     <!--        Btn Voir et Editer        -->
                     <div class="text-center mt-3">

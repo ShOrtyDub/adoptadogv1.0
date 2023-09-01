@@ -107,7 +107,7 @@ Accueil - Main
     margin: 5rem auto;
     padding: 1rem;
     width: 20rem;
-    background: #C89F9C;
+    background: #CA7C5C;
     border-radius: 20px;
 }
 
@@ -141,9 +141,12 @@ Les Dogs - liste des chiens
 Profil DU Dog
 ***************************************************/
 .commentaire {
-    width: 100vh;
+    width: 50rem;
     margin-left: auto;
     margin-right: auto;
+    background: #EEE2DF;
+    border-radius: 10px;
+    border: 1px solid #C89F9C;
 }
 
 /***************************************************
