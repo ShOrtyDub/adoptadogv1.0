@@ -3,41 +3,51 @@
 {% block title %}Mon Sweet Profil{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">{{ chien.nom }}</h1>
+    <main>
+        <!--        Nom du chien        -->
+        <h1 class="text-center mt-5 titre">{{ chien.nom }}</h1>
+        <!--        ! Nom du chien        -->
 
-    <div class="flex fiche lignerouge">
-        <div class="ligneverte">
-            <img src="{{ chien.photo }}" alt="photo du chien">
-        </div>
-        <div class="ligneverte">
-            <p><strong>Nom:</strong> {{ chien.nom }}</p>
-            <p><strong>Sexe:</strong> {{ chien.sexe }}</p>
-            <p><strong>Age:</strong> {{ chien.age }}</p>
-            <p><strong>Race:</strong> {{ chien.race }}</p>
-            <p><strong>Taille:</strong> {{ chien.taille }} cm</p>
-            <p><strong>Poids:</strong> {{ chien.poids }} kg</p>
-            <p><strong>Caractère:</strong> {{ chien.caractere }}</p>
-            <p><strong>Description:</strong> {{ chien.description }}</p>
-        </div>
-    </div>
-
-    <div class="text-center lignerouge">
-        <a href="{{ path('app_chien_index') }}">Revenir à la liste</a>
-        <a href="{{ path('app_commentaire_new', {'id': chien.id}) }}">ajouter un commentaire</a>
-        <a href="{{ path('app_chien_edit', {'id': chien.id}) }}">edit</a>
-        {{ include('chien/_delete_form.html.twig') }}
-    </div>
-
-    <div class="lignerouge">
-        {% for commentaire in commentaires %}
-            <div class="commentaire mt-2 mb-2 ligneverte">
-                <table>
-                    <tr>Commentaire</tr>
-                    <tr>
-                        <td>{{ commentaire.texte }}</td>
-                    </tr>
-                </table>
+        <!--        Fiche du chien        -->
+        <div class="fiche">
+            <div class="text-center pt-4 pb-4">
+                <img src="{{ chien.photo }}" alt="photo du chien" width="500">
             </div>
-        {% endfor %}
-    </div>
+
+            <div>
+                <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
+                <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
+                <div class="p-2"><strong>Age:</strong> {{ chien.age }}</div>
+                <div class="p-2"><strong>Race:</strong> {{ chien.race }}</div>
+                <div class="p-2"><strong>Taille:</strong> {{ chien.taille }} cm</div>
+                <div class="p-2"><strong>Poids:</strong> {{ chien.poids }} kg</div>
+                <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
+                <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a class="profil" href="{{ path('app_chien_index') }}">Revenir à la liste</a>
+                <a class="profil" href="{{ path('app_commentaire_new', {'id': chien.id}) }}">Ajouter un commentaire</a>
+                <a class="profil" href="{{ path('app_chien_edit', {'id': chien.id}) }}">Éditer</a>
+                <div class="mt-3">
+                    {{ include('chien/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <!--        ! Fiche du chien        -->
+
+        <!--        Commentaire sur le chien        -->
+        <div>
+            {% for commentaire in commentaires %}
+                <div class="commentaire mt-2 mb-2">
+                    {#                    TODO trouver le nom de l'auteur #}
+                    <div class="p-2">Commentaire de <strong>"Nom de l'auteur"</strong></div>
+                    {#                    TODO Object of class DateTime could not be converted to string #}
+                    {#                    <div>Le {{ commentaire.dateCreation }}</div> #}
+                    <div class="p-2">Le {{ commentaire.texte }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <!--        ! Commentaire sur le chien        -->
+    </main>
 {% endblock %}

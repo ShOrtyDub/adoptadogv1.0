@@ -136,6 +136,10 @@ Les Dogs - liste des chiens
     border-radius: 20px;
 }
 
+.btnNav{
+    width: fit-content;
+    margin-left: 5rem;
+}
 
 /***************************************************
 Profil DU Dog

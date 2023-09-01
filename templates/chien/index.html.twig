@@ -9,15 +9,15 @@
         <!--        ! Titre        -->
 
         <!--        Intro        -->
-        <p class="text-center intro">Voici nos amis qui attendent un nouveau foyer.</p>
+        <p class="text-center mt-5 intro">Voici nos amis qui attendent un nouveau foyer.</p>
         <!--        ! Intro        -->
 
         <!--        Btn retour accueil        -->
-        <div>
+        <div class="mt-5 btnNav">
+            <a class="profil" href="{{ path('app_main') }}">Accueil</a>
             {% if app.user %}
                 <a class="profil" href="{{ path('app_chien_new', {'id': app.user.id}) }}">Créer un profil de chien</a>
             {% endif %}
-            <a class="profil" href="{{ path('app_main') }}">Accueil</a>
         </div>
         <!--        ! Btn retour accueil        -->
 
