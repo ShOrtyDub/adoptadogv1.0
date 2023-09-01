@@ -19,20 +19,6 @@
                 <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
             {% endif %}
         </div>
-
-        <div class="container text-center lignerouge">
-            <h3>Trouver son macth ?!</h3>
-            <p>
-                Vous voulez faire une recherche pour voir avec quels chiens vous matchez ?
-            </p>
-            {% if not app.user %}
-                <a href="{{ path('app_login') }}">Voir les correspondances</a>
-            {% endif %}
-            {% if app.user %}
-                <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
-            {% endif %}
-        </div>
-
     </main>
 
 {% endblock %}
