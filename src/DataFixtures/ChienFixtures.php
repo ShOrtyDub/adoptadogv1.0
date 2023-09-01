@@ -24,11 +24,16 @@ class ChienFixtures extends Fixture
             $gender = $this->faker->randomElement([1, 2]);
             if ($gender === 1) {
                 $chien[$i]->setNom($this->faker->firstNameMale);
+                $chien[$i]->setSexe('Mâle');
             } else {
                 $chien[$i]->setNom($this->faker->firstNameFemale);
+                $chien[$i]->setSexe('Femelle');
             }
+            $numWords = $this->faker->numberBetween(10, 50);
+            $randomText = $this->faker->paragraph($numWords, true);
+            $chien[$i]->setDescription($randomText);
             $chien[$i]->setAge($this->faker->numberBetween(1, 15));
-            $chien[$i]->setPhoto('https://loremflickr.com/640/480/dog');
+            $chien[$i]->setPhoto('https://loremflickr.com/640/480/dog?rand=' . '{' . rand(1, 999) . '}');
             $chien[$i]->setRace($this->faker->randomElement([
                 'Labrador', 'Berger Allemand', 'Golden Retriever',
                 'French Bulldog', 'Bulldog'
