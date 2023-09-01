@@ -19,26 +19,32 @@
             </p>
             <p>Et peut-être, qui sait, leur permettre de retrouver un foyer...</p>
 
-            {% if app.user %}
-                <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
-            {% else %}
-                <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
-            {% endif %}
+            <div class="text-center mt-5">
+                {% if app.user %}
+                    <a class="profil" href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
+                {% else %}
+                    <a class="profil" href="{{ path('app_chien_index') }}">Voir les chiens</a>
+                {% endif %}
+            </div>
         </div>
         <!--        ! Bienvenu        -->
 
         <!--        Trouver son Match        -->
         <div class="text-center match">
-            <h2>Trouver son macth ?!</h2>
+            <h2>Trouver son match ?!</h2>
             <p>
                 Vous voulez faire une recherche pour voir avec quels chiens vous matchez ?
             </p>
-            {% if not app.user %}
-                <a href="{{ path('app_login') }}">Voir les correspondances</a>
-            {% endif %}
-            {% if app.user %}
-                <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
-            {% endif %}
+
+            <div class="text-center mt-5">
+                {% if not app.user %}
+                    <a class="profil" href="{{ path('app_login') }}">Voir les correspondances</a>
+                {% endif %}
+                {% if app.user %}
+                    <a class="profil" href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les
+                        correspondances</a>
+                {% endif %}
+            </div>
         </div>
         <!--        ! Trouver son Match        -->
 

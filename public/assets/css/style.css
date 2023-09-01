@@ -105,7 +105,7 @@ Accueil - Main
 
 .profil{
     margin: 5rem auto;
-    padding: 2rem;
+    padding: 1rem;
     width: 20rem;
     background: #C89F9C;
     border-radius: 20px;
@@ -116,16 +116,26 @@ Accueil - Main
     width: 50rem;
 }
 
-
 /***************************************************
 Les Dogs - liste des chiens
 ***************************************************/
-.fiche {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100vh;
-    justify-content: center;
+.titre{
+    font-size: 5rem;
 }
+
+.intro{
+    font-size: 2rem;
+}
+
+.fiche {
+    margin:  5rem auto;
+    width: 33rem;
+    height: fit-content;
+    justify-content: center;
+    background: #EED7C5;
+    border-radius: 20px;
+}
+
 
 /***************************************************
 Profil DU Dog
