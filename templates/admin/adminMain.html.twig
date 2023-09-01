@@ -4,28 +4,41 @@
 
 {% block body %}
     <main>
+        <!--        Titre        -->
         <h1 class="text-center sizeh1">Adopt a Dog</h1>
+        <!--        ! Titre        -->
 
-        <div class="container text-center lignerouge">
+        <!--        Bienvenu        -->
+        <div class="text-center match">
             <h2>Bienvenu sur Adopt a Dog!</h2>
+            <p>L'application de notre refuge où vous pouvez voir les chiens en adoption.</p>
             <p>
-                L'application de notre refuge où vous pouvez voir les chiens en adoption.
-                Et peut-être, qui sait, leur permettre de se trouver un foyer...
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur ducimus est eum inventore
+                pariatur quos sed suscipit totam unde! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Accusamus assumenda itaque maiores minima nesciunt numquam obcaecati perferendis quam qui rem.
             </p>
+            <p>Et peut-être, qui sait, leur permettre de retrouver un foyer...</p>
 
-            {% if app.user %}
-                <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
-            {% else %}
-                <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
-            {% endif %}
+            <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
+        </div>
+        <!--        ! Bienvenu        -->
+
+
+
+        <div class="flex boxBtn">
+            <!--        Bouton voir admins        -->
+            <div class="text-center profil">
+                <a href="{{ path('app_admin_index') }}">Voir les admins</a>
+            </div>
+            <!--        ! Bouton voir admins        -->
+
+            <!--        Bouton voir utilisateurs        -->
+            <div class="text-center profil">
+                <a href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
+            </div>
+            <!--        ! Bouton voir utilisateurs        -->
         </div>
 
-        <div>
-            <a class="nav-link" href="{{ path('app_admin_index') }}">Voir les admins</a>
-
-            <a class="nav-link" href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
-
-        </div>
     </main>
 
 {% endblock %}

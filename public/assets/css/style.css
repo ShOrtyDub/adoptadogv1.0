@@ -65,7 +65,7 @@ STRUCTURE
 .flex {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .lignerouge {
@@ -110,6 +110,12 @@ Accueil - Main
     background: #C89F9C;
     border-radius: 20px;
 }
+
+.boxBtn{
+    margin: auto;
+    width: 50rem;
+}
+
 
 /***************************************************
 Les Dogs - liste des chiens
