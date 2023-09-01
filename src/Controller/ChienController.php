@@ -63,8 +63,6 @@ class ChienController extends AbstractController
     public function show(Chien $chien, CommentaireRepository $commentaireRepository, $id = null): Response
     {
         $commentaire = $commentaireRepository->findBy(['fk_id_chien' => $id]);
-        //TODO faire un redirect sur la page adminShowChien en checkant si c'est bien un admin.
-        //user->getuserid
         $admin = $this->getUser();
         if ($admin instanceof Admin) {
             return $this->render('admin/adminProfilChien.html.twig', [
