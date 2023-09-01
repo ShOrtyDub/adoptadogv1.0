@@ -33,6 +33,11 @@
             {% endif %}
         </div>
 
+        {% if app.user %}
+            <div>
+                <a class="nav-link" href="{{ path('app_utilisateur_show', {'id': app.user.id}) }}">Mon profil</a>
+            </div>
+        {% endif %}
     </main>
 
 {% endblock %}
