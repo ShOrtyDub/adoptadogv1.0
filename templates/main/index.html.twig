@@ -4,14 +4,19 @@
 
 {% block body %}
     <main>
+        <!--        Titre        -->
         <h1 class="text-center sizeh1">Adopt a Dog</h1>
+        <!--        ! Titre        -->
 
-        <div class="container text-center lignerouge">
+        <!--        Bienvenu        -->
+        <div class="text-center match">
             <h2>Bienvenu sur Adopt a Dog!</h2>
-            <p>
-                L'application de notre refuge où vous pouvez voir les chiens en adoption.
-                Et peut-être, qui sait, leur permettre de se trouver un foyer...
+            <p>L'application de notre refuge où vous pouvez voir les chiens en adoption.<br/>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur ducimus est eum inventore
+                pariatur quos sed suscipit totam unde! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Accusamus assumenda itaque maiores minima nesciunt numquam obcaecati perferendis quam qui rem.
             </p>
+            <p>Et peut-être, qui sait, leur permettre de retrouver un foyer...</p>
 
             {% if app.user %}
                 <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
@@ -19,9 +24,11 @@
                 <a href="{{ path('app_chien_index') }}">Voir les chiens</a>
             {% endif %}
         </div>
+        <!--        ! Bienvenu        -->
 
-        <div class="container text-center lignerouge">
-            <h3>Trouver son macth ?!</h3>
+        <!--        Trouver son Match        -->
+        <div class="text-center match">
+            <h2>Trouver son macth ?!</h2>
             <p>
                 Vous voulez faire une recherche pour voir avec quels chiens vous matchez ?
             </p>
@@ -32,12 +39,16 @@
                 <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Voir les correspondances</a>
             {% endif %}
         </div>
+        <!--        ! Trouver son Match        -->
 
+
+        <!--        Voir son profil        -->
         {% if app.user %}
-            <div>
-                <a class="nav-link" href="{{ path('app_utilisateur_show', {'id': app.user.id}) }}">Mon profil</a>
+            <div class="text-center profil">
+                <a href="{{ path('app_utilisateur_show', {'id': app.user.id}) }}">Modifier mon profil</a>
             </div>
         {% endif %}
+        <!--        ! Voir son profil        -->
     </main>
 
 {% endblock %}
