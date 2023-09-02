@@ -108,7 +108,16 @@ Accueil - Main
     padding: 1rem;
     width: 20rem;
     background: #CA7C5C;
-    border-radius: 20px;
+    background-image: linear-gradient(to bottom, #B36A5E, #C89F9C);
+    border-radius: 28px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.profil:hover{
+    background: #c0945c;
+    background-image: linear-gradient(to bottom, #c0945c, #dfc17a);
+    text-decoration: none;
 }
 
 .boxBtn{

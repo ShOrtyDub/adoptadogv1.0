@@ -49,13 +49,13 @@
         <!--        ! Trouver son Match        -->
 
 
-        <!--        Voir son profil        -->
+        <!--        Modifier son profil        -->
         {% if app.user %}
-            <div class="text-center profil">
-                <a href="{{ path('app_utilisateur_show', {'id': app.user.id}) }}">Modifier mon profil</a>
+            <div class="text-center mb-5">
+                <a class="profil" href="{{ path('app_utilisateur_show', {'id': app.user.id}) }}">Modifier mon profil</a>
             </div>
         {% endif %}
-        <!--        ! Voir son profil        -->
+        <!--        ! Modifier son profil        -->
     </main>
 
 {% endblock %}
