@@ -4,34 +4,54 @@
 
 {% block body %}
     <main>
-        <h1 class="text-center">Vos matchs !</h1>
+        <!--        Titre        -->
+        <h1 class="text-center mt-5 titre">Vos matchs !</h1>
+        <!--        ! Titre        -->
 
-        <p class="text-center">{{ utilisateur.nom }} voici avec quelle boule de poils vous matchez</p>
 
-        <a href="{{ path('app_main') }}">Accueil</a>
+        <!--        Intro        -->
+        <p class="text-center">{{ utilisateur.nom }} voici avec quelle boule de poils vous avez matché ! <br/>
+            Appelez nous au 12.34.45.56 pour faire connaissance!</p>
+        <!--        ! Intro        -->
 
-        <div class="flex ligneverte">
+
+        <!--        Btn retour accueil        -->
+        <div class="mt-5 btnNav ligneverte">
+            <a class="profil" href="{{ path('app_main') }}">Accueil</a>
+            <a class="profil" href="{{ path('app_correspondance_new', {'id': utilisateur.id}) }}">Recherche Match</a>
+        </div>
+        <!--        ! Btn retour accueil        -->
+
+
+        <!--        Liste des chiens        -->
+        <div class="flex">
             {% for chien in chiens %}
-                <div class="fiche mt-5 mb-5 lignerouge">
-                    <div class="text-center ligneverte">
-                        <img src="{{ chien.photo }}" alt="photo du chien">
+                <!--        Fiche du chien        -->
+                <div class="fiche">
+                    <div class="text-center pt-4 pb-4">
+                        <img src="{{ chien.photo }}" alt="photo du chien" width="500">
                     </div>
 
-                    <div class="ligneverte">
-                        <p><strong>Nom:</strong> {{ chien.nom }}</p>
-                        <p><strong>Sexe:</strong> {{ chien.sexe }}</p>
-                        <p><strong>Age:</strong> {{ chien.age }}</p>
-                        <p><strong>Race:</strong> {{ chien.race }}</p>
-                        <p><strong>Taille:</strong> {{ chien.taille }} cm</p>
-                        <p><strong>Poids:</strong> {{ chien.poids }} kg</p>
-                        <p><strong>Caractère:</strong> {{ chien.caractere }}</p>
-                        <p><strong>Description:</strong> {{ chien.description }}</p>
+                    <div>
+                        <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
+                        <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
+                        <div class="p-2"><strong>Age:</strong> {{ chien.age }}</div>
+                        <div class="p-2"><strong>Race:</strong> {{ chien.race }}</div>
+                        <div class="p-2"><strong>Taille:</strong> {{ chien.taille }} cm</div>
+                        <div class="p-2"><strong>Poids:</strong> {{ chien.poids }} kg</div>
+                        <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
+                        <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
                     </div>
-                    <div class="text-center">
-                        <a href="{{ path('app_chien_show', {'id': chien.id}) }}">show</a>
+
+                    <!--        Btn Voir        -->
+                    <div class="text-center mt-3">
+                        <a class="profil" href="{{ path('app_chien_show', {'id': chien.id}) }}">Voir</a>
                     </div>
+                    <!--        ! Btn Voir        -->
                 </div>
             {% endfor %}
         </div>
+
+
     </main>
 {% endblock %}
