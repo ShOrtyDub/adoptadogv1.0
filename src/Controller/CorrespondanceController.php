@@ -109,7 +109,7 @@ class CorrespondanceController extends AbstractController
             return $this->redirectToRoute('app_correspondance_index', [
                 'chiens' => $chiens,
                 'utilisateur' => $utilisateur,
-                'id' => $id
+                'id' => $id,
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -119,8 +119,7 @@ class CorrespondanceController extends AbstractController
         ]);
     }
 
-    #[
-        Route('/{id}', name: 'app_correspondance_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_correspondance_show', methods: ['GET'])]
     public function show(Correspondance $correspondance): Response
     {
         return $this->render('correspondance/show.html.twig', [

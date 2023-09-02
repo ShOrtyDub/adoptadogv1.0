@@ -1,4 +1,21 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{#<div class="text-center matchRech">#}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="pt-3 pb-3">{{ form_row(form.couleur, {
+            'attr': {'class': 'form-control-sm'},
+            'label_attr': {'class': 'critere'}
+        }) }}</div>
+    <div class="pt-3 pb-3">{{ form_row(form.race, {
+            'attr': {'class': 'form-control-sm'},
+            'label_attr': {'class': 'critere'}
+        }) }}</div>
+    <div class="pt-3 pb-3">{{ form_row(form.caractere, {
+            'attr': {'class': 'form-control-sm'},
+            'label_attr': {'class': 'critere'}
+        }) }}</div>
+    {#    <button class="profil">{{ button_label|default('Enregistrer') }}</button> #}
+    <div class="text-center pt-3 pb-3">
+        <button class="recherche">{{ button_label|default('Recherche !') }}</button>
+    </div>
+    {{ form_end(form) }}
+{#</div>#}

@@ -103,7 +103,7 @@ Accueil - Main
     border-radius: 20px;
 }
 
-.profil{
+.profil {
     margin: 5rem auto;
     padding: 1rem;
     width: 20rem;
@@ -114,13 +114,13 @@ Accueil - Main
     text-decoration: none;
 }
 
-.profil:hover{
+.profil:hover {
     background: #c0945c;
     background-image: linear-gradient(to bottom, #c0945c, #dfc17a);
     text-decoration: none;
 }
 
-.boxBtn{
+.boxBtn {
     margin: auto;
     width: 50rem;
 }
@@ -128,16 +128,16 @@ Accueil - Main
 /***************************************************
 Les Dogs - liste des chiens
 ***************************************************/
-.titre{
+.titre {
     font-size: 5rem;
 }
 
-.intro{
+.intro {
     font-size: 2rem;
 }
 
 .fiche {
-    margin:  5rem auto;
+    margin: 5rem auto;
     width: 33rem;
     height: fit-content;
     justify-content: center;
@@ -145,7 +145,7 @@ Les Dogs - liste des chiens
     border-radius: 20px;
 }
 
-.btnNav{
+.btnNav {
     width: fit-content;
     /*margin-left: 5rem;*/
     margin-left: auto;
@@ -167,3 +167,46 @@ Profil DU Dog
 /***************************************************
 Profil Utilisateur
 ***************************************************/
+
+
+/***************************************************
+Recherche Macth
+***************************************************/
+.matchRech {
+    width: 30rem;
+    margin: 4rem auto;
+    background: #EED7C5;
+    border-radius: 20px;
+}
+
+.critere {
+    padding-right: 3rem;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: larger;
+    font-weight: bold;
+}
+
+/*global ?*/
+.retour{
+    width: 10rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+}
+
+.recherche{
+    padding: 1rem;
+    /*width: 1rem;*/
+    background: #CA7C5C;
+    border: #CA7C5C;
+    background-image: linear-gradient(to bottom, #B36A5E, #C89F9C);
+    border-radius: 28px;
+    color: #ffffff;
+}
+
+.recherche:hover {
+    background: #c0945c;
+    background-image: linear-gradient(to bottom, #c0945c, #dfc17a);
+    text-decoration: none;
+}

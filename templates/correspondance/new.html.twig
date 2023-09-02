@@ -1,11 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Correspondance{% endblock %}
+{% block title %}Ça match?{% endblock %}
 
 {% block body %}
-    <h1>Create new Correspondance</h1>
+    <main>
+        <!--        Titre        -->
+        <h1 class="text-center mt-5 titre">Ça Match ou ça ne Match pas?!</h1>
+        <!--        ! Titre        -->
 
-    {{ include('correspondance/_form.html.twig') }}
+        <!--        Intro        -->
+        <h2 class="text-center mt-5 intro">Sélectionnez les critères de votre boule de poil.</h2>
+        <!--        ! Intro        -->
 
-    <a href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">back to list</a>
+        <div class="text-center matchRech">
+            <!--        Formulaire        -->
+            {{ include('correspondance/_form.html.twig') }}
+            <!--        ! Formulaire        -->
+        </div>
+        <!--        Btn retour à la liste        -->
+        <div class="retour">
+            <a class="profil" href="{{ path('app_correspondance_index', {'id': app.user.id}) }}">Retour à la liste</a>
+        </div>
+        <!--        ! Btn retour à la liste        -->
+    </main>
 {% endblock %}
