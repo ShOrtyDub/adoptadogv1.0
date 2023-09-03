@@ -3,28 +3,38 @@
 {% block title %}Votre profil{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Votre profil</h1>
-    <h2 class="text-center">Bonjour {{ utilisateur.prenom }}</h2>
+    <!--        Titre        -->
+    <h1 class="text-center mt-5 titre">Votre profil</h1>
+    <!--        ! Titre        -->
 
-    <div class="flex fiche lignerouge">
-        <div class="ligneverte">
+    <!--        Intro        -->
+    <h2 class="text-center mt-5">Bonjour {{ utilisateur.prenom }}</h2>
+    <!--        ! Intro        -->
+
+    <!--        Fiche utilisateur        -->
+    <div class="fiche">
+        <div class="text-center pt-4 pb-4">
             <img src="{{ utilisateur.photo }}" alt="photo de l'utilisateur">
         </div>
 
-        <div class="ligneverte">
-            <p><strong>Nom:</strong> {{ utilisateur.nom }}</p>
-            <p><strong>Prenom:</strong> {{ utilisateur.prenom }}</p>
-            <p><strong>Age:</strong> {{ utilisateur.age }} cm</p>
-            <p><strong>Téléphone:</strong> {{ utilisateur.telephone }} kg</p>
-            <p><strong>Email:</strong> {{ utilisateur.email }}</p>
+        <div>
+            <div class="p-2"><strong>Nom:</strong> {{ utilisateur.nom }}</div>
+            <div class="p-2"><strong>Prenom:</strong> {{ utilisateur.prenom }}</div>
+            <div class="p-2"><strong>Age:</strong> {{ utilisateur.age }} cm</div>
+            <div class="p-2"><strong>Téléphone:</strong> {{ utilisateur.telephone }} kg</div>
+            <div class="p-2"><strong>Email:</strong> {{ utilisateur.email }}</div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a class="profil" href="{{ path('app_utilisateur_index') }}">back to list</a>
+
+            <a class="profil" href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier votre
+                profil</a>
+
         </div>
     </div>
+    <!--        ! Fiche utilisateur        -->
 
-    <div class="text-center lignerouge">
-        <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+    {{ include('utilisateur/_delete_form.html.twig') }}
 
-        <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier votre profil</a>
-
-        {{ include('utilisateur/_delete_form.html.twig') }}
-    </div>
 {% endblock %}
