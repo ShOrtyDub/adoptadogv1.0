@@ -40,11 +40,10 @@
         <div>
             {% for commentaire in commentaires %}
                 <div class="commentaire mt-2 mb-2">
-                    {#                    TODO trouver le nom de l'auteur #}
-                    <div class="p-2">Commentaire de <strong>"Nom de l'auteur"</strong></div>
-                    {#                    TODO Object of class DateTime could not be converted to string #}
-                    {#                    <div>Le {{ commentaire.dateCreation }}</div> #}
-                    <div class="p-2">Le {{ commentaire.texte }}</div>
+                    <div class="p-2">Commentaire de <strong>
+                            {{ commentaire.fkidutilisateur ? commentaire.fkidutilisateur.nom : commentaire.fkidadmin.nom }}
+                        </strong>le {{ commentaire.dateCreation|date('d/m/Y H:i:s') }}</div>
+                    <div class="p-2">{{ commentaire.texte }}</div>
                 </div>
             {% endfor %}
         </div>

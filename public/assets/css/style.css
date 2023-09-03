@@ -166,9 +166,14 @@ Profil DU Dog
 }
 
 /***************************************************
-Profil Utilisateur
+Edit Utilisateur
 ***************************************************/
+.monprofil{
+    width: 40rem;
+    margin: 0 auto;
+    background: #EED7C5;
 
+}
 
 /***************************************************
 Recherche Macth

@@ -1,4 +1,133 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{# {{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+{# {{ form_end(form) }}#}
+
+
+
+
+{# <form method="post"> #}
+
+{#    <h1 class="text-center mt-5 titre">Me connecter</h1> #}
+
+{#    <div class="matchRech champ"> #}
+{#        <div class="mx-auto my-2 intitule"> #}
+{#            #}{#            nom #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputNom">Nom</label> #}
+{#            </div> #}
+{#            #}{#            prenom #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputPrenom">Prénom</label> #}
+{#            </div> #}
+{#            #}{#            age #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputAge">Age</label> #}
+{#            </div> #}
+{#            #}{#            role #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputRole">Role</label> #}
+{#            </div> #}
+{#            #}{#            telephone #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputTelephone">Téléphone</label> #}
+{#            </div> #}
+{#            #}{#            photo #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputPhoto">Photo</label> #}
+{#            </div> #}
+{#            #}{#            email #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputEmail">Email</label> #}
+{#            </div> #}
+{#            #}{#            password #}
+{#            <div class="my-2"> #}
+{#                <label class="ml-2" for="inputPassword">Mot de passe</label> #}
+{#            </div> #}
+{#        </div> #}
+{#        <div class="mx-auto my-2 intitule"> #}
+{#            #}{#            nom #}
+{#            <div class="my-2"> #}
+{#                <input type="text" value="{{ utilisateur.nom }}" name="nom" id="inputNom" class="" #}
+{#                       autocomplete="nom" required autofocus> #}
+{#            </div> #}
+{#            #}{#            prenom #}
+{#            <div class="my-2"> #}
+{#                <input type="text" value="{{ utilisateur.prenom }}" name="prenom" id="inputPrenom" class="" #}
+{#                       autocomplete="prenom" required autofocus> #}
+{#            </div> #}
+{#            #}{#            age #}
+{#            #}{#            role #}
+{#            #}{#            telephone #}
+{#            #}{#            photo #}
+{#            #}{#            email #}
+{#            <div class="my-2"> #}
+{#                <input type="email" value="{{ utilisateur.email }}" name="email" id="inputEmail" class="" #}
+{#                       autocomplete="email" required autofocus> #}
+{#            </div> #}
+{#            #}{#            password #}
+{#            <div class="my-2"> #}
+{#                <input type="password" value="{{ utilisateur.password }}" name="password" id="inputPassword" class="" #}
+{#                       autocomplete="current-password" #}
+{#                       required> #}
+{#            </div> #}
+{#            #}{#            isValide #}
+{#        </div> #}
+{#    </div> #}
+
+{#    <div class="text-center"> #}
+{#        <button class="recherche" type="submit"> #}
+{#            Me connecter #}
+{#        </button> #}
+{#    </div> #}
+
+{#    <div class="text-center retour"> #}
+{#        <a class="recherche" href="{{ path('app_main') }}">Retour à l'accueil</a> #}
+{#    </div> #}
+
+{#    <input type="hidden" name="_csrf_token" #}
+{#           value="{{ csrf_token('authenticate') }}" #}
+{#    > #}
+{# </form> #}
+
+
+
+
+
+
+
+
+<form name="utilisateur" action="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" method="post">
+    <div id="utilisateur" class="mt-5 monprofil champ lignerouge">
+
+{#        Label#}
+        <div class="ligneverte">
+            <div><label for="utilisateur_email" class="required">Email</label></div>
+            <div><label for="utilisateur_roles" class="required">Role</label></div>
+            <div><label for="utilisateur_password_first" class="required">Mot de passe</label></div>
+            <div><label for="utilisateur_password_second" class="required">Confirmation du mot de passe</label></div>
+            <div><label for="utilisateur_nom" class="required">Nom</label></div>
+            <div><label for="utilisateur_prenom" class="required">Prénom</label></div>
+            <div><label for="utilisateur_age" class="required">Âge</label></div>
+            <div><label for="utilisateur_photo">Photo</label></div>
+            <div><label for="utilisateur_telephone" class="required">Téléphone</label></div>
+            <div><label for="utilisateur_is_valide">Valide</label></div>
+        </div>
+{#        Input#}
+        <div class="ligneverte">
+            <div><input type="email" id="utilisateur_email" name="utilisateur[email]" required="required"/></div>
+            <div><select id="utilisateur_roles" name="utilisateur[roles]"><option value="ROLE_VISITOR">Visiteur</option></select></div>
+            <div><input type="password" id="utilisateur_password_first" name="utilisateur[password][first]" required="required" class="password-field" autocomplete="new-password"/></div>
+            <div><input type="password" id="utilisateur_password_second" name="utilisateur[password][second]" required="required" class="password-field" autocomplete="new-password"/></div>
+            <div><input type="text" id="utilisateur_nom" name="utilisateur[nom]" required="required"/></div>
+            <div><input type="text" id="utilisateur_prenom" name="utilisateur[prenom]" required="required"/></div>
+            <div><input type="text" id="utilisateur_age" name="utilisateur[age]" required="required" inputmode="decimal"/></div>
+            <div><input type="text" id="utilisateur_photo" name="utilisateur[photo]" maxlength="255"/></div>
+            <div><input type="text" id="utilisateur_telephone" name="utilisateur[telephone]" required="required" inputmode="decimal"/></div>
+            <div><input type="checkbox" id="utilisateur_is_valide" name="utilisateur[is_valide]" value="1"/></div>
+        </div>
+
+    </div>
+    {{ form_row(form._token) }}
+    <input type="submit" value="Mise à jour">
+</form>
