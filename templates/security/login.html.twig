@@ -10,49 +10,40 @@
 
         <h1 class="text-center mt-5 titre">Me connecter</h1>
 
-{#        <div class="boxForm">
-            <label class="ligneverte" for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class=""
-                   autocomplete="email" required autofocus>
-        </div>
-
-        <div>
-            <label for="inputPassword">Mot de passe</label>
-            <input type="password" name="password" id="inputPassword" class="form-control"
-                   autocomplete="current-password"
-                   required>
-        </div>#}
-
-        <div class="boxForm">
-            <div class="boxInput ligneverte">
-                <div>
-                     <label class="ligneverte" for="inputEmail">Email</label>
+        <div class="matchRech champ">
+            <div class="mx-auto my-2 intitule">
+                <div class="my-2">
+                    <label class="ml-2" for="inputEmail">Email</label>
                 </div>
-                <div>
+                <div class="my-2">
+                    <label class="ml-2" for="inputPassword">Mot de passe</label>
+                </div>
+            </div>
+            <div class="mx-auto my-2 intitule">
+                <div class="my-2">
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class=""
-                   autocomplete="email" required autofocus>
+                           autocomplete="email" required autofocus>
                 </div>
-            </div>
-            <div class="ligneverte">
-                <div>
-                    <label for="inputPassword">Mot de passe</label>
-                </div>
-                <div>
+                <div class="my-2">
                     <input type="password" name="password" id="inputPassword" class=""
-                   autocomplete="current-password"
-                   required>
+                           autocomplete="current-password"
+                           required>
                 </div>
             </div>
         </div>
 
+        <div class="text-center">
+            <button class="recherche" type="submit">
+                Me connecter
+            </button>
+        </div>
+
+        <div class="text-center retour">
+            <a class="recherche" href="{{ path('app_main') }}">Retour à l'accueil</a>
+        </div>
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
         >
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Me connecter
-        </button>
     </form>
-    <a href="{{ path('app_main') }}">Accueil</a>
 {% endblock %}

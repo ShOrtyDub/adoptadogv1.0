@@ -91,6 +91,7 @@ Accueil - Main
 ***************************************************/
 .sizeh1 {
     font-size: 7rem;
+    font-family: 'Homemade Apple', cursive;
     margin-top: 5rem;
     margin-bottom: 5rem;
 }
@@ -211,12 +212,11 @@ Recherche Macth
 /***************************************************
 Login
 ***************************************************/
-.boxForm {
-    min-width: 30rem;
-    margin: 4rem auto;
-    border: solid 1px red;
+.champ {
+    display: flex;
 }
 
-.boxInput{
-    display: flex;
+.intitule{
+    width: fit-content;
+    font-family: 'Cabin', sans-serif;
 }
