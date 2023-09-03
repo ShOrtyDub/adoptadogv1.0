@@ -182,20 +182,17 @@ Recherche Macth
 .critere {
     padding-right: 3rem;
     font-family: 'Shadows Into Light', cursive;
-    font-size: larger;
+    font-size: 100px;
     font-weight: bold;
 }
 
 /*global ?*/
-.retour{
+.retour {
     width: 10rem;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin: 10rem auto;
 }
 
-.recherche{
+.recherche {
     padding: 1rem;
     /*width: 1rem;*/
     background: #CA7C5C;
@@ -209,4 +206,17 @@ Recherche Macth
     background: #c0945c;
     background-image: linear-gradient(to bottom, #c0945c, #dfc17a);
     text-decoration: none;
+}
+
+/***************************************************
+Login
+***************************************************/
+.boxForm {
+    min-width: 30rem;
+    margin: 4rem auto;
+    border: solid 1px red;
+}
+
+.boxInput{
+    display: flex;
 }
