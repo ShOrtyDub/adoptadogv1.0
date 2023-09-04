@@ -7,6 +7,7 @@ use App\Entity\Utilisateur;
 use App\Form\CommentaireType;
 use App\Repository\ChienRepository;
 use App\Repository\CommentaireRepository;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,12 +32,18 @@ class CommentaireController extends AbstractController
         $commentaire = new Commentaire();
         $chien = $chienRepository->find($id);
         $utilisateur = $this->getUser();
+
         if ($utilisateur instanceof Utilisateur) {
             $commentaire->setFkIdUtilisateur($utilisateur);
         } else {
             $commentaire->setFkIdAdmin($utilisateur);
         }
+
         $commentaire->setFkIdChien($chien);
+
+        $dateActuelle = new \DateTime('now', new DateTimeZone('Europe/Paris'));
+        $commentaire->setDateCreation($dateActuelle);
+
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 

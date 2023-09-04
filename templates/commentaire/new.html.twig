@@ -3,9 +3,13 @@
 {% block title %}Commentaire{% endblock %}
 
 {% block body %}
-    <h1>Vous voulez laisser un commentaire ?</h1>
+    <h1 class="text-center mt-5 titre">Voulez-vous laisser un commentaire ?</h1>
 
-    {{ include('commentaire/_form.html.twig') }}
+    <div class="text-center matchRech">
+        {{ include('commentaire/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('app_chien_show', {'id': chien.id}) }}">back to list</a>
+    <div class="retour">
+        <a class="profil" href="{{ path('app_chien_show', {'id': chien.id}) }}">Retour au profil</a>
+    </div>
 {% endblock %}

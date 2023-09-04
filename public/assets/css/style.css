@@ -186,9 +186,7 @@ Recherche Macth
 }
 
 .critere {
-    padding-right: 3rem;
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 100px;
+    padding-right: 1rem;
     font-weight: bold;
 }
 
@@ -225,3 +223,14 @@ Login
     width: fit-content;
     font-family: 'Cabin', sans-serif;
 }
+
+/***************************************************
+Commentaire
+***************************************************/
+#commentaire_texte{
+    width: 20rem;
+    min-height: 5rem;
+}
+
+
+
