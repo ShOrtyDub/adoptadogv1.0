@@ -1,7 +1,58 @@
- {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
- {{ form_end(form) }}
+{{ form_start(form) }}
+<div class="pt-3 pb-3">
+    {{ form_row(form.nom, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.prenom, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.age, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.telephone, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.photo, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.email, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.password, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="text-center pt-3 pb-3">
+    <button class="recherche">{{ button_label|default('Mettre à jour') }}</button>
+    <a class="profil" href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">Revenir au profil</a>
+</div>
+{{ form_end(form) }}
 
 
 
@@ -91,43 +142,3 @@
 {# </form> #}
 
 
-
-
-
-
-
-
-{#<form name="utilisateur" action="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" method="post">#}
-{#    <div id="utilisateur" class="mt-5 monprofil champ lignerouge">#}
-
-{#        Label#}
-{#        <div class="ligneverte">#}
-{#            <div><label for="utilisateur_email" class="required">Email</label></div>#}
-{#            <div><label for="utilisateur_roles" class="required">Role</label></div>#}
-{#            <div><label for="utilisateur_password_first" class="required">Mot de passe</label></div>#}
-{#            <div><label for="utilisateur_password_second" class="required">Confirmation du mot de passe</label></div>#}
-{#            <div><label for="utilisateur_nom" class="required">Nom</label></div>#}
-{#            <div><label for="utilisateur_prenom" class="required">Prénom</label></div>#}
-{#            <div><label for="utilisateur_age" class="required">Âge</label></div>#}
-{#            <div><label for="utilisateur_photo">Photo</label></div>#}
-{#            <div><label for="utilisateur_telephone" class="required">Téléphone</label></div>#}
-{#            <div><label for="utilisateur_is_valide">Valide</label></div>#}
-{#        </div>#}
-{#        Input#}
-{#        <div class="ligneverte">#}
-{#            <div><input type="email" id="utilisateur_email" name="utilisateur[email]" required="required"/></div>#}
-{#            <div><select id="utilisateur_roles" name="utilisateur[roles]"><option value="ROLE_VISITOR">Visiteur</option></select></div>#}
-{#            <div><input type="password" id="utilisateur_password_first" name="utilisateur[password][first]" required="required" class="password-field" autocomplete="new-password"/></div>#}
-{#            <div><input type="password" id="utilisateur_password_second" name="utilisateur[password][second]" required="required" class="password-field" autocomplete="new-password"/></div>#}
-{#            <div><input type="text" id="utilisateur_nom" name="utilisateur[nom]" required="required"/></div>#}
-{#            <div><input type="text" id="utilisateur_prenom" name="utilisateur[prenom]" required="required"/></div>#}
-{#            <div><input type="text" id="utilisateur_age" name="utilisateur[age]" required="required" inputmode="decimal"/></div>#}
-{#            <div><input type="text" id="utilisateur_photo" name="utilisateur[photo]" maxlength="255"/></div>#}
-{#            <div><input type="text" id="utilisateur_telephone" name="utilisateur[telephone]" required="required" inputmode="decimal"/></div>#}
-{#            <div><input type="checkbox" id="utilisateur_is_valide" name="utilisateur[is_valide]" value="1"/></div>#}
-{#        </div>#}
-
-{#    </div>#}
-{#    {{ form_row(form._token) }}#}
-{#    <input type="submit" value="Mise à jour">#}
-{#</form>#}

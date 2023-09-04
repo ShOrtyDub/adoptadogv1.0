@@ -24,13 +24,13 @@ class UtilisateurType extends AbstractType
                 'label' => 'Email',
                 'required' => true
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Visiteur' => 'ROLE_VISITOR',
-                ],
-                'label' => 'Role',
-                'required' => true
-            ])
+//            ->add('roles', ChoiceType::class, [
+//                'choices' => [
+//                    'Visiteur' => 'ROLE_VISITOR',
+//                ],
+//                'label' => 'Role',
+//                'required' => true
+//            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Mot de passe ne correspond pas',
@@ -57,21 +57,21 @@ class UtilisateurType extends AbstractType
                 'label' => 'Téléphone',
                 'required' => true
             ])
-            ->add('is_valide', CheckboxType::class, [
-                'label' => 'Valide',
-                'required' => false
-            ])
+//            ->add('is_valide', CheckboxType::class, [
+//                'label' => 'Valide',
+//                'required' => false
+//            ])
         ;
 
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
-            ));
+//        $builder->get('roles')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($rolesArray) {
+//                    return count($rolesArray) ? $rolesArray[0] : null;
+//                },
+//                function ($rolesString) {
+//                    return [$rolesString];
+//                }
+//            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
