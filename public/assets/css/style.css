@@ -131,6 +131,7 @@ Les Dogs - liste des chiens
 ***************************************************/
 .titre {
     font-size: 5rem;
+    font-family: 'Homemade Apple', cursive;
 }
 
 .intro {
@@ -168,7 +169,7 @@ Profil DU Dog
 /***************************************************
 Edit Utilisateur
 ***************************************************/
-.monprofil{
+.monprofil {
     width: 40rem;
     margin: 0 auto;
     background: #EED7C5;
@@ -212,6 +213,10 @@ Recherche Macth
     text-decoration: none;
 }
 
+.blank {
+    min-height: 38rem;
+}
+
 /***************************************************
 Login
 ***************************************************/
@@ -219,7 +224,7 @@ Login
     display: flex;
 }
 
-.intitule{
+.intitule {
     width: fit-content;
     font-family: 'Cabin', sans-serif;
 }
@@ -227,7 +232,7 @@ Login
 /***************************************************
 Commentaire
 ***************************************************/
-#commentaire_texte{
+#commentaire_texte {
     width: 20rem;
     min-height: 5rem;
 }
