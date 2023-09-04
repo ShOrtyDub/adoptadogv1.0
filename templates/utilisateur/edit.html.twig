@@ -8,14 +8,15 @@
     <div class="text-center matchRech">
         {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
     </div>
+    <div class="text-center">
+        {{ include('utilisateur/_delete_form.html.twig') }}
+    </div>
 
-    <div class="flex mb-4 boxBtn">
-        <div class="mt-2">
+        <div class="text-center my-4">
             <a class="profil" href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">Revenir au profil</a>
         </div>
 
-            {{ include('utilisateur/_delete_form.html.twig') }}
-    </div>
+
 
 
 {% endblock %}
