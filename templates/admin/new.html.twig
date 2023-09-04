@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Admin{% endblock %}
+{% block title %}Nouvel Admin{% endblock %}
 
 {% block body %}
-    <h1>Create new Admin</h1>
+    <h1 class="text-center mt-5 titre">Créer un Admin</h1>
 
-    {{ include('admin/_form.html.twig') }}
+    <div class="text-center matchRech">
+        {{ include('admin/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('app_admin_index') }}">back to list</a>
+    <div class="text-center mb-5">
+        <a class="profil" href="{{ path('app_admin_index') }}">Revenir à la liste</a>
+    </div>
 {% endblock %}

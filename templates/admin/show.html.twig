@@ -3,23 +3,23 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Votre profil</h1>
-    <h2 class="text-center">Bonjour {{ admin.prenom }}</h2>
+    <h1 class="text-center mt-5 titre">Votre profil</h1>
 
-    <div class="flex fiche lignerouge">
-        <div class="ligneverte">
-            <p><strong>Numero d'admin:</strong> {{ admin.id }}</p>
-            <p><strong>Nom:</strong> {{ admin.nom }}</p>
-            <p><strong>Prenom:</strong> {{ admin.prenom }}</p>
-            <p><strong>Email:</strong> {{ admin.email }}</p>
+    <h2 class="text-center mt-5">Bonjour {{ admin.prenom }}</h2>
+
+    <div class="fiche">
+        <div class="text-center py-4">
+            <div class="px-2"><strong>Numero d'admin:</strong> {{ admin.id }}</div>
+            <div class="px-2"><strong>Nom:</strong> {{ admin.nom }}</div>
+            <div class="px-2"><strong>Prenom:</strong> {{ admin.prenom }}</div>
+            <div class="px-2"><strong>Email:</strong> {{ admin.email }}</div>
         </div>
-    </div>
 
-    <div class="text-center lignerouge">
-        <a href="{{ path('app_admin_index') }}">back to list</a>
+        <div class="text-center mt-3">
+            <a class="profil" href="{{ path('app_admin_index') }}">Revenir à la liste</a>
 
-        <a href="{{ path('app_admin_edit', {'id': admin.id}) }}">edit</a>
+            <a class="profil" href="{{ path('app_admin_edit', {'id': admin.id}) }}">Éditer</a>
+        </div>
 
-        {{ include('admin/_delete_form.html.twig') }}
     </div>
 {% endblock %}

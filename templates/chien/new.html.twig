@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Chien{% endblock %}
+{% block title %}Nouveau Chien{% endblock %}
 
 {% block body %}
-    <h1>Create new Chien</h1>
+    <h1 class="text-center mt-5 titre">Nouveau profil de chien</h1>
 
-    {{ include('chien/_form.html.twig') }}
+    <div class="text-center matchRech">
+        {{ include('chien/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('app_chien_index') }}">back to list</a>
+    <div class="text-center mb-5">
+        <a class="profil" href="{{ path('app_chien_index') }}">Revenir à la liste</a>
+    </div>
 {% endblock %}

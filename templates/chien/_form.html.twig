@@ -1,4 +1,75 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="pt-3 pb-3">
+    {{ form_row(form.nom, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.age, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.race, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.couleur, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.sexe, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.photo, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.taille, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.poids, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.caractere, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="pt-3 pb-3">
+    {{ form_row(form.description, {
+        'attr': {'class': 'form-control-sm'},
+        'label_attr': {'class': 'critere'},
+    }) }}
+</div>
+
+<div class="text-center pt-3 pb-3">
+    <button class="recherche">{{ button_label|default('Enregistrer') }}</button>
+</div>
 {{ form_end(form) }}

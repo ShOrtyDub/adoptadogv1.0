@@ -20,7 +20,7 @@ class Commentaire
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $date_creation = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $isValide = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]

@@ -105,14 +105,16 @@ class UtilisateurController extends AbstractController
     {
         $commentaires = $commentaireRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
         $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
-//        dd($correspondance);
+
         foreach ($commentaires as $commentaire) {
             $commentaire->setFkIdUtilisateur(null);
-//            $entityManager->remove($commentaire);
         }
+
         foreach ($correspondances as $correspondance) {
             $correspondance->setFkIdUtilisateur(null);
         }
+
+
 
         if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
             $this->container->get('security.token_storage')->setToken(null);
@@ -125,5 +127,29 @@ class UtilisateurController extends AbstractController
         } else {
             return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
+
+//        // User
+//        if ($utilisateur instanceof Utilisateur) {
+//            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+//                $this->container->get('security.token_storage')->setToken(null);
+//                $entityManager->remove($utilisateur);
+//                $entityManager->flush();
+//            }
+//
+//            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//
+//        //Admin
+//        if ($utilisateur instanceof Admin) {
+//            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+//                $entityManager->remove($utilisateur);
+//                $entityManager->flush();
+//            }
+//
+//            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+//        }
     }
 }
+
+

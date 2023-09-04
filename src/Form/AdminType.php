@@ -22,14 +22,14 @@ class AdminType extends AbstractType
                 'label' => 'Email',
                 'required' => true
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Visiteur' => 'ROLE_VISITOR',
-                ],
-                'label' => 'Role',
-                'required' => true
-            ])
+//            ->add('roles', ChoiceType::class, [
+//                'choices' => [
+//                    'Administrateur' => 'ROLE_ADMIN',
+//                    'Visiteur' => 'ROLE_VISITOR',
+//                ],
+//                'label' => 'Role',
+//                'required' => true
+//            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Mot de passe ne correspond pas',
@@ -47,15 +47,15 @@ class AdminType extends AbstractType
                 'required' => true
             ]);
 
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
-            ));
+//        $builder->get('roles')
+//            ->addModelTransformer(new CallbackTransformer(
+//                function ($rolesArray) {
+//                    return count($rolesArray) ? $rolesArray[0] : null;
+//                },
+//                function ($rolesString) {
+//                    return [$rolesString];
+//                }
+//            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
