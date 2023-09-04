@@ -45,13 +45,15 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_chien_show', [
-                'id' => $chien->getId()
+                'chien'=> $chien,
+                'id' => $chien->getId(),
             ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/new.html.twig', [
             'commentaire' => $commentaire,
             'form' => $form,
+            'chien'=> $chien,
         ]);
     }
 
