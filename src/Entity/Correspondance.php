@@ -14,11 +14,11 @@ class Correspondance
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'correspondances')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Chien $fk_id_chien = null;
 
     #[ORM\ManyToOne(inversedBy: 'correspondances')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Utilisateur $fk_id_utilisateur = null;
 
     #[ORM\Column(length: 50, nullable: true)]

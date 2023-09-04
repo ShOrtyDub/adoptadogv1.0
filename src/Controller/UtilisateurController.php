@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Repository\CommentaireRepository;
+use App\Repository\CorrespondanceRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,15 +62,31 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    public function edit(Request                     $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
+                         UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plaintextPaswword = $utilisateur->getPassword();
+            $hashedPassword = $passwordHasher->hashPassword(
+                $utilisateur,
+                $plaintextPaswword
+            );
+            $utilisateur->setPassword($hashedPassword);
+
+            $entityManager->persist($utilisateur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            if ($utilisateur instanceof Admin) {
+                return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('app_utilisateur_show', [
+                    'utilisateur' => $utilisateur,
+                    'id' => $utilisateur->getId(),
+                ], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('utilisateur/edit.html.twig', [
@@ -77,13 +96,32 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
-    public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    public function delete(Request               $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
+                           CommentaireRepository $commentaireRepository, CorrespondanceRepository $correspondanceRepository): Response
     {
+        $commentaires = $commentaireRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
+        $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
+//        dd($correspondance);
+        foreach ($commentaires as $commentaire) {
+            $commentaire->setFkIdUtilisateur(null);
+//            $entityManager->remove($commentaire);
+        }
+        foreach ($correspondances as $correspondance) {
+            $correspondance->setFkIdUtilisateur(null);
+        }
+
         if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+            $this->container->get('security.token_storage')->setToken(null);
             $entityManager->remove($utilisateur);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        if ($utilisateur instanceof Admin) {
+            //Si admin renvoie vers app_utilisateur_index
+            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        } else {
+            //Si utilisateur renvoie vers app_utilisateur_show
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+        }
     }
 }

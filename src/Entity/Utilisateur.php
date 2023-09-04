@@ -48,6 +48,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $is_valide = null;
 
     #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Admin $fk_id_admin = null;
 
     #[ORM\OneToMany(mappedBy: 'fk_id_utilisateur', targetEntity: Correspondance::class)]
