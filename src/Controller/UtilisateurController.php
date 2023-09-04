@@ -117,10 +117,8 @@ class UtilisateurController extends AbstractController
         }
 
         if ($utilisateur instanceof Admin) {
-            //Si admin renvoie vers app_utilisateur_index
             return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
         } else {
-            //Si utilisateur renvoie vers app_utilisateur_show
             return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
     }

@@ -97,12 +97,16 @@ class ChienController extends AbstractController
 
     #[Route('/{id}', name: 'app_chien_delete', methods: ['POST'])]
     public function delete(Request                  $request, Chien $chien, EntityManagerInterface $entityManager,
-                           CorrespondanceRepository $correspondanceRepository): Response
+                           CorrespondanceRepository $correspondanceRepository, CommentaireRepository $commentaireRepository): Response
     {
         $idChien = $chien->getId();
         $correspondances = $correspondanceRepository->findBy(['fk_id_chien' => $idChien]);
+        $commentaires = $commentaireRepository->findBy(['fk_id_chien' => $idChien]);
         foreach ($correspondances as $correspondance) {
             $entityManager->remove($correspondance);
+        }
+        foreach ($commentaires as $commentaire){
+            $entityManager->remove($commentaire);
         }
 
         if ($this->isCsrfTokenValid('delete' . $chien->getId(), $request->request->get('_token'))) {
