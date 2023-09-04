@@ -44,7 +44,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $is_valide = null;
 
     #[ORM\ManyToOne(inversedBy: 'utilisateurs')]

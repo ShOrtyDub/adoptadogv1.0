@@ -40,6 +40,7 @@ class UtilisateurController extends AbstractController
                 $plaintextPaswword
             );
 
+            $utilisateur->setRoles(["ROLE_VISITEUR"]);
             $utilisateur->setPassword($hashedPassword);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -54,10 +55,11 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
-    public function show(Utilisateur $utilisateur): Response
+    public function show(Utilisateur $utilisateur, $id = null): Response
     {
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
+            'id' => $id,
         ]);
     }
 
@@ -74,6 +76,8 @@ class UtilisateurController extends AbstractController
                 $utilisateur,
                 $plaintextPaswword
             );
+
+            $utilisateur->setRoles(["ROLE_VISITEUR"]);
             $utilisateur->setPassword($hashedPassword);
 
             $entityManager->persist($utilisateur);
