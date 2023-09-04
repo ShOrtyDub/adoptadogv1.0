@@ -19,22 +19,24 @@
             </p>
             <p>Et peut-être, qui sait, leur permettre de retrouver un foyer...</p>
 
-            <a href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
+            <div class="mt-5">
+                <a class="profil" href="{{ path('app_chien_index', {'id': app.user.id}) }}">Voir les chiens</a>
+            </div>
+
         </div>
         <!--        ! Bienvenu        -->
 
 
-
         <div class="flex boxBtn">
             <!--        Bouton voir admins        -->
-            <div class="text-center profil">
-                <a href="{{ path('app_admin_index') }}">Voir les admins</a>
+            <div class="text-center mb-5">
+                <a class="profil" href="{{ path('app_admin_index') }}">Voir les admins</a>
             </div>
             <!--        ! Bouton voir admins        -->
 
             <!--        Bouton voir utilisateurs        -->
-            <div class="text-center profil">
-                <a href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
+            <div class="text-center mb-5">
+                <a class="profil" href="{{ path('app_utilisateur_index') }}">Voir les utilisateurs</a>
             </div>
             <!--        ! Bouton voir utilisateurs        -->
         </div>
