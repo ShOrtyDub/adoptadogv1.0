@@ -17,9 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class CorrespondanceController extends AbstractController
 {
     #[Route('/{id}', name: 'app_correspondance_index', methods: ['GET'])]
-    public function index(CorrespondanceRepository $correspondanceRepository, UtilisateurRepository $utilisateurRepository, $id = null): Response
+    public function index(CorrespondanceRepository $correspondanceRepository, UtilisateurRepository $utilisateurRepository, Request $request, $id = null): Response
     {
-        // TODO réussir à avoir la fkchien et la fkutilisateur pour afficher la vue du match
+        $recherche = 0;
+
+        if ($nouvelleRecherche = $request->query->get('autreRecherche')) {
+            $recherche = $nouvelleRecherche;
+        }
+
         $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => $id]);
 
         $chiens = [];
@@ -31,14 +36,16 @@ class CorrespondanceController extends AbstractController
         return $this->render('correspondance/index.html.twig', [
             'correspondances' => $correspondanceRepository->findAll(),
             'chiens' => $chiens,
-            'utilisateur' => $utilisateur
+            'utilisateur' => $utilisateur,
+            'recherche' => $recherche,
         ]);
     }
 
     #[Route('/new/{id}', name: 'app_correspondance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, CorrespondanceRepository $correspondanceRepository,
+    public function new(Request               $request, EntityManagerInterface $entityManager, CorrespondanceRepository $correspondanceRepository,
                         UtilisateurRepository $utilisateurRepository, ChienRepository $chienRepository, $id = null): Response
     {
+        $autreRecherche = 1;
         $correspondance = new Correspondance();
         $utilisateur = $utilisateurRepository->find($id);
         $form = $this->createForm(CorrespondanceType::class, $correspondance);
@@ -110,6 +117,7 @@ class CorrespondanceController extends AbstractController
                 'chiens' => $chiens,
                 'utilisateur' => $utilisateur,
                 'id' => $id,
+                'autreRecherche' => $autreRecherche,
             ], Response::HTTP_SEE_OTHER);
         }
 

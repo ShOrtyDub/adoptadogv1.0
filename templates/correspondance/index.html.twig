@@ -10,7 +10,7 @@
 
 
         <!--        Intro        -->
-        <h2 class="text-center">{{ utilisateur.nom }} voici les dernières boule de poils avec lesquelles vous avez
+        <h2 class="text-center">{{ utilisateur.nom }} voici les dernières boules de poils avec lesquelles vous avez
             matché ! <br/>
             Appelez nous au 05 54 83 00 09 pour faire connaissance!</h2>
         <!--        ! Intro        -->
@@ -23,43 +23,83 @@
         </div>
         <!--        ! Btn retour accueil        -->
 
+        {% if recherche == 0 %}
+            {% if chiens is empty %}
+                <div class="text-center mt-5">
+                    <p>Lancez votre première recherche</p>
+                </div>
+            {% else %}
+                <!--        Liste des chiens        -->
+                <div class="flex">
+                    {% for chien in chiens %}
+                        <!--        Fiche du chien        -->
+                        <div class="fiche">
+                            <div class="text-center pt-4 pb-4">
+                                <img src="{{ chien.photo }}" alt="photo du chien" width="500">
+                            </div>
 
-        {% if chiens is empty %}
-            <div class="text-center mt-5">
-                <p>Le refuge n'as pas de chien <br/>
-                    qui correspond à ces critère</p>
-                <p>Essayez à nouveau avec d'autres critères...</p>
-            </div>
-        {% else %}
-            <!--        Liste des chiens        -->
-            <div class="flex">
-                {% for chien in chiens %}
-                    <!--        Fiche du chien        -->
-                    <div class="fiche">
-                        <div class="text-center pt-4 pb-4">
-                            <img src="{{ chien.photo }}" alt="photo du chien" width="500">
-                        </div>
+                            <div>
+                                <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
+                                <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
+                                <div class="p-2"><strong>Age:</strong> {{ chien.age }}</div>
+                                <div class="p-2"><strong>Race:</strong> {{ chien.race }}</div>
+                                <div class="p-2"><strong>Taille:</strong> {{ chien.taille }} cm</div>
+                                <div class="p-2"><strong>Poids:</strong> {{ chien.poids }} kg</div>
+                                <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
+                                <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
+                            </div>
 
-                        <div>
-                            <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
-                            <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
-                            <div class="p-2"><strong>Age:</strong> {{ chien.age }}</div>
-                            <div class="p-2"><strong>Race:</strong> {{ chien.race }}</div>
-                            <div class="p-2"><strong>Taille:</strong> {{ chien.taille }} cm</div>
-                            <div class="p-2"><strong>Poids:</strong> {{ chien.poids }} kg</div>
-                            <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
-                            <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
+                            <!--        Btn Voir        -->
+                            <div class="text-center mt-3">
+                                <a class="profil" href="{{ path('app_chien_show', {'id': chien.id}) }}">Voir</a>
+                            </div>
+                            <!--        ! Btn Voir        -->
                         </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-                        <!--        Btn Voir        -->
-                        <div class="text-center mt-3">
-                            <a class="profil" href="{{ path('app_chien_show', {'id': chien.id}) }}">Voir</a>
+
+
+        {% elseif recherche == 1 %}
+            {% if chiens is empty %}
+                <div class="text-center mt-5">
+                    <p>Le refuge n'as pas de chien <br/>
+                        qui correspond à ces critères</p>
+                    <p>Essayez à nouveau avec d'autres critères...</p>
+                </div>
+            {% else %}
+                <!--        Liste des chiens        -->
+                <div class="flex">
+                    {% for chien in chiens %}
+                        <!--        Fiche du chien        -->
+                        <div class="fiche">
+                            <div class="text-center pt-4 pb-4">
+                                <img src="{{ chien.photo }}" alt="photo du chien" width="500">
+                            </div>
+
+                            <div>
+                                <div class="p-2"><strong>Nom:</strong> {{ chien.nom }}</div>
+                                <div class="p-2"><strong>Sexe:</strong> {{ chien.sexe }}</div>
+                                <div class="p-2"><strong>Age:</strong> {{ chien.age }}</div>
+                                <div class="p-2"><strong>Race:</strong> {{ chien.race }}</div>
+                                <div class="p-2"><strong>Taille:</strong> {{ chien.taille }} cm</div>
+                                <div class="p-2"><strong>Poids:</strong> {{ chien.poids }} kg</div>
+                                <div class="p-2"><strong>Caractère:</strong> {{ chien.caractere }}</div>
+                                <div class="p-2"><strong>Description:</strong> {{ chien.description }}</div>
+                            </div>
+
+                            <!--        Btn Voir        -->
+                            <div class="text-center mt-3">
+                                <a class="profil" href="{{ path('app_chien_show', {'id': chien.id}) }}">Voir</a>
+                            </div>
+                            <!--        ! Btn Voir        -->
                         </div>
-                        <!--        ! Btn Voir        -->
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endif %}
+
 
         <div class="blank"></div>
     </main>
