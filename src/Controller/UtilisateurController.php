@@ -103,6 +103,7 @@ class UtilisateurController extends AbstractController
     public function delete(Request               $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
                            CommentaireRepository $commentaireRepository, CorrespondanceRepository $correspondanceRepository): Response
     {
+        $admin = $this->getUser();
         $commentaires = $commentaireRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
         $correspondances = $correspondanceRepository->findBy(['fk_id_utilisateur' => $utilisateur->getId()]);
 
@@ -115,40 +116,24 @@ class UtilisateurController extends AbstractController
         }
 
 
+        if ($admin instanceof Admin){
+            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($utilisateur);
+                $entityManager->flush();
+            }
 
-        if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
-            $this->container->get('security.token_storage')->setToken(null);
-            $entityManager->remove($utilisateur);
-            $entityManager->flush();
-        }
-
-        if ($utilisateur instanceof Admin) {
             return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-        } else {
+
+        } elseif ($admin instanceof Utilisateur) {
+            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
+                $this->container->get('security.token_storage')->setToken(null);
+                $entityManager->remove($utilisateur);
+                $entityManager->flush();
+            }
             return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
         }
 
-//        // User
-//        if ($utilisateur instanceof Utilisateur) {
-//            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
-//                $this->container->get('security.token_storage')->setToken(null);
-//                $entityManager->remove($utilisateur);
-//                $entityManager->flush();
-//            }
-//
-//            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
-//        }
-//
-//
-//        //Admin
-//        if ($utilisateur instanceof Admin) {
-//            if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
-//                $entityManager->remove($utilisateur);
-//                $entityManager->flush();
-//            }
-//
-//            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-//        }
+        return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }
 }
 
