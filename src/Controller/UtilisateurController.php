@@ -8,6 +8,7 @@ use App\Form\UtilisateurType;
 use App\Repository\CommentaireRepository;
 use App\Repository\CorrespondanceRepository;
 use App\Repository\UtilisateurRepository;
+use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,9 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request                     $request, EntityManagerInterface $entityManager,
+                        UserPasswordHasherInterface $passwordHasher, FileUploaderService $file_uploader,
+                                                    $publicUploadDir): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
@@ -39,6 +42,10 @@ class UtilisateurController extends AbstractController
                 $utilisateur,
                 $plaintextPaswword
             );
+            $file = $form['photo']->getData();
+            if ($file) {
+                $this->doUpload($file, $utilisateur, $file_uploader, $publicUploadDir);
+            }
 
             $utilisateur->setRoles(["ROLE_VISITEUR"]);
             $utilisateur->setPassword($hashedPassword);
@@ -65,8 +72,11 @@ class UtilisateurController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request                     $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
-                         UserPasswordHasherInterface $passwordHasher): Response
+                         UserPasswordHasherInterface $passwordHasher, UtilisateurRepository $utilisateurRepository,
+                         FileUploaderService $file_uploader, $publicUploadDir, $deleteFolder): Response
     {
+        $ancienUtilisateur = $utilisateurRepository->find($utilisateur->getId());
+        $photo = $ancienUtilisateur->getPhoto();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
@@ -76,6 +86,12 @@ class UtilisateurController extends AbstractController
                 $utilisateur,
                 $plaintextPaswword
             );
+
+            $file = $form['photo']->getData();
+            if ($file !== null) {
+                @unlink($deleteFolder . $photo);
+                $this->doUpload($file, $utilisateur, $file_uploader, $publicUploadDir);
+            }
 
             $utilisateur->setRoles(["ROLE_VISITEUR"]);
             $utilisateur->setPassword($hashedPassword);
@@ -116,7 +132,7 @@ class UtilisateurController extends AbstractController
         }
 
 
-        if ($admin instanceof Admin){
+        if ($admin instanceof Admin) {
             if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($utilisateur);
                 $entityManager->flush();
@@ -134,6 +150,15 @@ class UtilisateurController extends AbstractController
         }
 
         return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function doUpload($file, $chien, $file_uploader, $publicUploadDir): void
+    {
+        $file_name = $file_uploader->upload($file);
+        if ($file_name !== null) {
+            $file_path = $publicUploadDir . '/' . $file_name;
+            $chien->setPhoto($file_path);
+        }
     }
 }
 

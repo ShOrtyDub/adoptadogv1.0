@@ -62,7 +62,7 @@ class ChienType extends AbstractType
                 'label' => 'Photo',
                 'mapped' => true,
                 'required' => false,
-                'help' => 'Fichier jpg, jpeg,png ou webp ne dépassant pas 10 Mo',
+                'help' => 'Fichier jpg, jpeg,png ou webp ne dépassant pas 1Mo',
                 'constraints' => [
                     new File([
                         'maxSize' => '10M',

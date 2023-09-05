@@ -92,13 +92,11 @@ class ChienController extends AbstractController
         $ancienChien = $chienRepository->find($chien->getId());
         $photo = $ancienChien->getPhoto();
         $form = $this->createForm(ChienType::class, $chien);
-//        dd($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['photo']->getData();
             if ($file !== null) {
-//                if ()
                 @unlink($deleteFolder . $photo);
                 $this->doUpload($file, $chien, $file_uploader, $publicUploadDir);
             }

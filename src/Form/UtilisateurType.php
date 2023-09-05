@@ -4,16 +4,15 @@ namespace App\Form;
 
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class UtilisateurType extends AbstractType
 {
@@ -24,19 +23,11 @@ class UtilisateurType extends AbstractType
                 'label' => 'Email',
                 'required' => true
             ])
-//            ->add('roles', ChoiceType::class, [
-//                'choices' => [
-//                    'Visiteur' => 'ROLE_VISITOR',
-//                ],
-//                'label' => 'Role',
-//                'required' => true
-//            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Mot de passe ne correspond pas',
                 'options' => ['attr' => ['class' => 'password-field', 'autocomplete' => 'new-password']],
-                'required' => is_null($builder->getData()->getId()),
-//                'empty_data' => '',
+                'required' => true,
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation du mot de passe']
             ])
@@ -52,26 +43,31 @@ class UtilisateurType extends AbstractType
                 'label' => 'Âge',
                 'required' => true
             ])
-            ->add('photo')
+            ->add('photo', FileType::class, [
+                'data_class' => null,
+                'empty_data' => '',
+                'label' => 'Photo',
+                'mapped' => true,
+                'required' => false,
+                'help' => 'Fichier jpg, jpeg,png ou webp ne dépassant pas 1Mo',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'maxSizeMessage' => 'Votre fichier ne doit pas dépasser 1Mo',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => "This document isn't valid",
+                    ]),
+                ]
+            ])
             ->add('telephone', NumberType::class, [
                 'label' => 'Téléphone',
                 'required' => true
             ])
-//            ->add('is_valide', CheckboxType::class, [
-//                'label' => 'Valide',
-//                'required' => false
-//            ])
         ;
-
-//        $builder->get('roles')
-//            ->addModelTransformer(new CallbackTransformer(
-//                function ($rolesArray) {
-//                    return count($rolesArray) ? $rolesArray[0] : null;
-//                },
-//                function ($rolesString) {
-//                    return [$rolesString];
-//                }
-//            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
