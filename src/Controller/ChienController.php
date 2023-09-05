@@ -11,6 +11,7 @@ use App\Repository\ChienRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CorrespondanceRepository;
 use App\Repository\UtilisateurRepository;
+use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,8 @@ class ChienController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_chien_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, AdminRepository $adminRepository, $id = null): Response
+    public function new(Request             $request, EntityManagerInterface $entityManager, AdminRepository $adminRepository,
+                        FileUploaderService $file_uploader, $publicUploadDir, $id = null): Response
     {
         $chien = new Chien();
         $idAmdin = $adminRepository->find($id);
@@ -47,6 +49,11 @@ class ChienController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['photo']->getData();
+            if ($file) {
+                $this->doUpload($file, $chien, $file_uploader, $publicUploadDir);
+            }
+
             $entityManager->persist($chien);
             $entityManager->flush();
 
@@ -78,12 +85,24 @@ class ChienController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_chien_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Chien $chien, EntityManagerInterface $entityManager): Response
+    public function edit(Request         $request, Chien $chien, EntityManagerInterface $entityManager,
+                         ChienRepository $chienRepository, FileUploaderService $file_uploader,
+                                         $publicUploadDir, $deleteFolder): Response
     {
+        $ancienChien = $chienRepository->find($chien->getId());
+        $photo = $ancienChien->getPhoto();
         $form = $this->createForm(ChienType::class, $chien);
+//        dd($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['photo']->getData();
+            if ($file !== null) {
+//                if ()
+                @unlink($deleteFolder . $photo);
+                $this->doUpload($file, $chien, $file_uploader, $publicUploadDir);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_chien_index', [], Response::HTTP_SEE_OTHER);
@@ -105,7 +124,7 @@ class ChienController extends AbstractController
         foreach ($correspondances as $correspondance) {
             $entityManager->remove($correspondance);
         }
-        foreach ($commentaires as $commentaire){
+        foreach ($commentaires as $commentaire) {
             $entityManager->remove($commentaire);
         }
 
@@ -115,5 +134,14 @@ class ChienController extends AbstractController
         }
 
         return $this->redirectToRoute('app_chien_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function doUpload($file, $chien, $file_uploader, $publicUploadDir): void
+    {
+        $file_name = $file_uploader->upload($file);
+        if ($file_name !== null) {
+            $file_path = $publicUploadDir . '/' . $file_name;
+            $chien->setPhoto($file_path);
+        }
     }
 }

@@ -28,7 +28,7 @@ class Chien
     #[ORM\Column(length: 50)]
     private ?string $couleur = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
     #[ORM\Column]
@@ -120,7 +120,7 @@ class Chien
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): static
+    public function setPhoto(?string $photo): static
     {
         $this->photo = $photo;
 

@@ -5,11 +5,13 @@ namespace App\Form;
 use App\Entity\Chien;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ChienType extends AbstractType
 {
@@ -54,7 +56,26 @@ class ChienType extends AbstractType
                 'label' => 'Couleur dominante',
                 'required' => true
             ])
-            ->add('photo')
+            ->add('photo', FileType::class, [
+                'data_class' => null,
+                'empty_data' => '',
+                'label' => 'Photo',
+                'mapped' => true,
+                'required' => false,
+                'help' => 'Fichier jpg, jpeg,png ou webp ne dépassant pas 10 Mo',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'maxSizeMessage' => 'Votre fichier ne doit pas dépasser 1Mo',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => "This document isn't valid",
+                    ]),
+                ]
+            ])
             ->add('taille', NumberType::class, [
                 'label' => 'Taille en cm',
                 'required' => true
@@ -75,8 +96,7 @@ class ChienType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Texte',
                 'required' => true
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
