@@ -92,11 +92,32 @@ class AdminController extends AbstractController
     #[Route('/{id}', name: 'app_admin_delete', methods: ['POST'])]
     public function delete(Request $request, Admin $admin, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('Delete' . $admin->getId(), $request->request->get('_token'))) {
+        $adminConnecte = $this->getUser();
+
+        if ($adminConnecte === $admin) {
+            if ($this->isCsrfTokenValid('Delete' . $admin->getId(), $request->request->get('_token'))) {
+                $this->container->get('security.token_storage')->setToken(null);
+                $entityManager->remove($admin);
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
+
+        } else {
+            if ($this->isCsrfTokenValid('Delete' . $admin->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($admin);
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+
+/*        if ($this->isCsrfTokenValid('Delete' . $admin->getId(), $request->request->get('_token'))) {
             $entityManager->remove($admin);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);*/
     }
 }
