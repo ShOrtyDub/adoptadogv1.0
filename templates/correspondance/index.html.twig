@@ -26,7 +26,7 @@
         {% if recherche == 0 %}
             {% if chiens is empty %}
                 <div class="text-center mt-5">
-                    <p>Lancez votre première recherche</p>
+                    <p>Lancez votre première recherche.</p>
                 </div>
             {% else %}
                 <!--        Liste des chiens        -->
@@ -64,8 +64,8 @@
         {% elseif recherche == 1 %}
             {% if chiens is empty %}
                 <div class="text-center mt-5">
-                    <p>Le refuge n'as pas de chien <br/>
-                        qui correspond à ces critères</p>
+                    <p>Aucun chien du refuge <br/>
+                        ne correspond à ces critères.</p>
                     <p>Essayez à nouveau avec d'autres critères...</p>
                 </div>
             {% else %}
