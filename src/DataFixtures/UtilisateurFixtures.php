@@ -6,12 +6,13 @@ use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UtilisateurFixtures extends Fixture
 {
-    private $faker;
-    private $passwordHasher;
+    private Generator $faker;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -28,6 +29,7 @@ class UtilisateurFixtures extends Fixture
             $utilisateur[$i]->setPrenom($this->faker->firstName());
             $utilisateur[$i]->setIsValide($this->faker->boolean());
             $utilisateur[$i]->setAge($this->faker->numberBetween(18, 50));
+            $utilisateur[$i]->setTelephone($this->faker->phoneNumber());
             $utilisateur[$i]->setPhoto('https://loremflickr.com/640/480/face?rand=' . '{' . rand(1, 999) . '}');
             $hashedPassword = $this->passwordHasher->hashPassword($utilisateur[$i], '123');
             $utilisateur[$i]->setPassword($hashedPassword);
