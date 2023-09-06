@@ -1,31 +1,66 @@
-{# TODO #}
 <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="{{ path('app_main') }}">
-        <img src="{{ asset('assets/img/palette_couleur.png') }}" width="30" height="30" class="d-inline-block align-top"
-             alt="">
-        Adopt a Dog
-    </a>
+    <div class="flex">
+        <a class="navbar-brand" href="{{ path('app_main') }}">
+            <img src="{{ asset('assets/img/patte.webp') }}" width="30" height="30" class="d-inline-block align-top"
+                 alt="">
+            Adopt a Dog
+        </a>
 
-    {% if app.user %}
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-                </li>
-            </ul>
-        </div>
-    {% else %}
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_utilisateur_new') }}">Inscription</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                </li>
-            </ul>
-        </div>
-    {% endif %}
-
+        {% if app.user %}
+            <div id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <div id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_utilisateur_new') }}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
 </nav>
+
+
+
+
+
+
+{#<nav class="navbar navbar-expand-lg">#}
+{#    <a class="navbar-brand" href="{{ path('app_main') }}">#}
+{#        <img src="{{ asset('assets/img/patte.jpg') }}" width="30" height="30" class="d-inline-block align-top"#}
+{#             alt="">#}
+{#        Adopt a Dog#}
+{#    </a>#}
+
+{#    {% if app.user %}#}
+{#        <div class="collapse navbar-collapse" id="navbarNavDropdown">#}
+{#            <ul class="navbar-nav">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <div class="collapse navbar-collapse" id="navbarNavDropdown">#}
+{#            <ul class="navbar-nav">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{{ path('app_utilisateur_new') }}">Inscription</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endif %}#}
+
+{#</nav>#}
 

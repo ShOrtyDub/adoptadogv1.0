@@ -3,6 +3,12 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
+    <!--        Logo        -->
+    <div class="text-center mt-3">
+        <img src="{{ asset('assets/img/patte.webp') }}" width="150rem" alt="Logo Adopt a Dog">
+    </div>
+    <!--        ! Logo        -->
+
     <h1 class="text-center mt-5 titre">Votre profil</h1>
 
     <h2 class="text-center mt-5">Bonjour {{ admin.prenom }}</h2>
@@ -20,6 +26,8 @@
 
             <a class="profil" href="{{ path('app_admin_edit', {'id': admin.id}) }}">Éditer</a>
         </div>
+
+        <div class="space"></div>
 
     </div>
 {% endblock %}

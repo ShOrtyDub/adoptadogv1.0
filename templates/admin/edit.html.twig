@@ -3,11 +3,23 @@
 {% block title %}Edit Admin{% endblock %}
 
 {% block body %}
-    <h1>Edit Admin</h1>
+    <!--        Logo        -->
+    <div class="text-center mt-3">
+        <img src="{{ asset('assets/img/patte.webp') }}" width="150rem" alt="Logo Adopt a Dog">
+    </div>
+    <!--        ! Logo        -->
 
-    {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
+    <h1 class="text-center mt-5 titre">Éditer un Admin</h1>
 
-    <a href="{{ path('app_admin_index') }}">back to list</a>
+    <div class="text-center matchRech">
+        {{ include('admin/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
 
-    {{ include('admin/_delete_form.html.twig') }}
+    <div class="text-center">
+        {{ include('admin/_delete_form.html.twig') }}
+    </div>
+
+    <div class="text-center my-4">
+        <a class="profil" href="{{ path('app_admin_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

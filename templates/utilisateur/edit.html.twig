@@ -3,10 +3,16 @@
 {% block title %}Editer mon profil{% endblock %}
 
 {% block body %}
+    <!--        Logo        -->
+    <div class="text-center mt-3">
+        <img src="{{ asset('assets/img/patte.webp') }}" width="150rem" alt="Logo Adopt a Dog">
+    </div>
+    <!--        ! Logo        -->
+
     <h1 class="text-center mt-5 titre">Editer mon profil</h1>
 
     <div class="text-center matchRech">
-        {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('utilisateur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     </div>
     <div class="text-center">
         {{ include('utilisateur/_delete_form.html.twig') }}

@@ -170,7 +170,7 @@ Profil DU Dog
 Profil Utilisateur
 ***************************************************/
 .space{
-    min-height: 6rem;
+    min-height: 7rem;
 }
 
 
@@ -197,7 +197,7 @@ Recherche Macth
 /*global ?*/
 .retour {
     width: 10rem;
-    margin: 10rem auto;
+    margin: 15rem auto;
 }
 
 .recherche {

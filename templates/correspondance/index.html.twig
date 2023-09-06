@@ -4,6 +4,12 @@
 
 {% block body %}
     <main>
+        <!--        Logo        -->
+        <div class="text-center mt-3">
+            <img src="{{ asset('assets/img/patte.webp') }}" width="150rem" alt="Logo Adopt a Dog">
+        </div>
+        <!--        ! Logo        -->
+
         <!--        Titre        -->
         <h1 class="text-center mt-5 titre">Vos matchs !</h1>
         <!--        ! Titre        -->
@@ -29,6 +35,10 @@
                     <p>Lancez votre première recherche.</p>
                 </div>
             {% else %}
+                    <div class="text-center mt-5">
+                        <p>Votre dernière recherche <br/>
+                        pour ne pas oublier les boules de poils que vous avez trouvé...</p>
+                    </div>
                 <!--        Liste des chiens        -->
                 <div class="flex">
                     {% for chien in chiens %}
@@ -69,6 +79,9 @@
                     <p>Essayez à nouveau avec d'autres critères...</p>
                 </div>
             {% else %}
+                <div class="text-center mt-5">
+                    <p>Vos boules de poils...</p>
+                </div>
                 <!--        Liste des chiens        -->
                 <div class="flex">
                     {% for chien in chiens %}
