@@ -6,6 +6,8 @@ use App\Entity\Admin;
 use App\Form\AdminType;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
+    /**
+     * Affiche le tableau de tous les admins.
+     * @param AdminRepository $adminRepository
+     * @return Response
+     */
     #[Route('/', name: 'app_admin_index', methods: ['GET'])]
     public function index(AdminRepository $adminRepository): Response
     {
@@ -23,6 +30,13 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Crée un nouvel admin.
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     #[Route('/new', name: 'app_admin_new', methods: ['GET', 'POST'])]
     public function new(Request                     $request, EntityManagerInterface $entityManager,
                         UserPasswordHasherInterface $passwordHasher): Response
@@ -53,6 +67,11 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche la vue du profil de l'admin sélectionné.
+     * @param Admin $admin
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
     public function show(Admin $admin): Response
     {
@@ -61,9 +80,17 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Modifie le profil d'un admin.
+     * @param Request $request
+     * @param Admin $admin
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_admin_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Admin $admin, EntityManagerInterface $entityManager,
-    UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request                     $request, Admin $admin, EntityManagerInterface $entityManager,
+                         UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(AdminType::class, $admin);
         $form->handleRequest($request);
@@ -89,6 +116,15 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Supprime un admin.
+     * @param Request $request
+     * @param Admin $admin
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     #[Route('/{id}', name: 'app_admin_delete', methods: ['POST'])]
     public function delete(Request $request, Admin $admin, EntityManagerInterface $entityManager): Response
     {
@@ -111,13 +147,5 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
         }
-
-
-/*        if ($this->isCsrfTokenValid('Delete' . $admin->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($admin);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);*/
     }
 }

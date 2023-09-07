@@ -17,11 +17,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CorrespondanceRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructeur.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Correspondance::class);
     }
 
+    /**
+     * Supprime les correspondances de l'utilisateur.
+     * @param Utilisateur $utilisateur
+     * @return void
+     */
     public function deleteOldCorrespondence(Utilisateur $utilisateur): void
     {
         $this->createQueryBuilder('c')

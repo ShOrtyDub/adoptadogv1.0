@@ -19,6 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
+    /**
+     * Affiche la liste des utilisateurs.
+     * @param UtilisateurRepository $utilisateurRepository
+     * @return Response
+     */
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -27,6 +32,15 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /**
+     * Crée un nouvel utilisateur.
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param FileUploaderService $file_uploader
+     * @param $publicUploadDir
+     * @return Response
+     */
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
     public function new(Request                     $request, EntityManagerInterface $entityManager,
                         UserPasswordHasherInterface $passwordHasher, FileUploaderService $file_uploader,
@@ -47,7 +61,7 @@ class UtilisateurController extends AbstractController
                 $this->doUpload($file, $utilisateur, $file_uploader, $publicUploadDir);
             }
 
-            $utilisateur->setRoles(["ROLE_VISITEUR"]);
+            $utilisateur->setRoles(["ROLE_VISITOR"]);
             $utilisateur->setPassword($hashedPassword);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -61,6 +75,12 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /**
+     * Affiche le profil d'un utilisateur.
+     * @param Utilisateur $utilisateur
+     * @param $id
+     * @return Response
+     */
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur, $id = null): Response
     {
@@ -70,6 +90,18 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /**
+     * Modifie le profil d'un utilisateur.
+     * @param Request $request
+     * @param Utilisateur $utilisateur
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param UtilisateurRepository $utilisateurRepository
+     * @param FileUploaderService $file_uploader
+     * @param $publicUploadDir
+     * @param $deleteFolder
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request                     $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
                          UserPasswordHasherInterface $passwordHasher, UtilisateurRepository $utilisateurRepository,
@@ -77,6 +109,7 @@ class UtilisateurController extends AbstractController
     {
         $ancienUtilisateur = $utilisateurRepository->find($utilisateur->getId());
         $photo = $ancienUtilisateur->getPhoto();
+
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
@@ -86,7 +119,6 @@ class UtilisateurController extends AbstractController
                 $utilisateur,
                 $plaintextPaswword
             );
-
             $file = $form['photo']->getData();
             if ($file !== null) {
                 @unlink($deleteFolder . $photo);
@@ -115,6 +147,17 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /**
+     * Supprime l'utilisateur.
+     * @param Request $request
+     * @param Utilisateur $utilisateur
+     * @param EntityManagerInterface $entityManager
+     * @param CommentaireRepository $commentaireRepository
+     * @param CorrespondanceRepository $correspondanceRepository
+     * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request               $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager,
                            CommentaireRepository $commentaireRepository, CorrespondanceRepository $correspondanceRepository): Response
@@ -152,6 +195,14 @@ class UtilisateurController extends AbstractController
         return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * Upload la photo enregistrée par l'utilisateur.
+     * @param $file
+     * @param $chien
+     * @param $file_uploader
+     * @param $publicUploadDir
+     * @return void
+     */
     private function doUpload($file, $chien, $file_uploader, $publicUploadDir): void
     {
         $file_name = $file_uploader->upload($file);
