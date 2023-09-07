@@ -93,7 +93,7 @@ class UtilisateurController extends AbstractController
                 $this->doUpload($file, $utilisateur, $file_uploader, $publicUploadDir);
             }
 
-            $utilisateur->setRoles(["ROLE_VISITEUR"]);
+            $utilisateur->setRoles(["ROLE_VISITOR"]);
             $utilisateur->setPassword($hashedPassword);
 
             $entityManager->persist($utilisateur);

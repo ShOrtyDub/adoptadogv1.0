@@ -29,7 +29,7 @@ class UtilisateurFixtures extends Fixture
             $utilisateur[$i]->setPrenom($this->faker->firstName());
             $utilisateur[$i]->setIsValide($this->faker->boolean());
             $utilisateur[$i]->setAge($this->faker->numberBetween(18, 50));
-            $utilisateur[$i]->setTelephone($this->faker->phoneNumber());
+            $utilisateur[$i]->setTelephone("05" . mt_rand(00000000, 99999999));
             $utilisateur[$i]->setPhoto('https://loremflickr.com/640/480/face?rand=' . '{' . rand(1, 999) . '}');
             $hashedPassword = $this->passwordHasher->hashPassword($utilisateur[$i], '123');
             $utilisateur[$i]->setPassword($hashedPassword);
