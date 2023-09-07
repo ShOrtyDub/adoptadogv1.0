@@ -9,13 +9,25 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordHasherInterface
+     */
     private $passwordHasher;
 
+    /**
+     * Constructeur.
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Peuple la table admin dans la base de données.
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $admin = new Admin();

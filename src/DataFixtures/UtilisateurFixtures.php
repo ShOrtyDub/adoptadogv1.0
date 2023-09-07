@@ -11,15 +11,30 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UtilisateurFixtures extends Fixture
 {
+    /**
+     * @var Generator
+     */
     private Generator $faker;
+    /**
+     * @var UserPasswordHasherInterface
+     */
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructeur.
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
         $this->faker = Factory::create('fr_FR');
     }
 
+    /**
+     * Peuple la table Utilisateur dans la base de données.
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 5; $i++) {

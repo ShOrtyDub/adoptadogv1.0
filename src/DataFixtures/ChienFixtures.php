@@ -10,13 +10,24 @@ use Faker\Factory;
 
 class ChienFixtures extends Fixture
 {
+    /**
+     * @var \Faker\Generator
+     */
     private $faker;
 
+    /**
+     * Constructeur.
+     */
     public function __construct()
     {
         $this->faker = Factory::create('fr_FR');
     }
 
+    /**
+     * Peuple la table chien dans la base de données.
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 5; $i++) {
@@ -49,6 +60,12 @@ class ChienFixtures extends Fixture
         $manager->flush();
     }
 
+    /**
+     * Obtient une référence aléatoire de la table spécifiée.
+     * @param string $className
+     * @param object $manager
+     * @return mixed
+     */
     protected function getRandomReference(string $className, object $manager)
     {
         $list = $manager->getRepository($className)->findAll();
